@@ -25,14 +25,12 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Vishnu Serghei</td>
-                    <td>2012/01/01</td>
-                    <td>Member</td>
-                    <td>Member</td>
-                    <td>Member</td>
-                    <td>
-                        <span class="badge badge-success">Active</span>
-                    </td>
+                    <td>Meu Bolão</td>
+                    <td>Brasileirão 2018</td>
+                    <td>Sim</td>
+                    <td>10/11/2018</td>
+                    <td>01/01/2019</td>
+                    <td>R$ 200,00</td>
                 </tr>
                 </tbody>
             </table>
