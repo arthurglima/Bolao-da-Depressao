@@ -112,7 +112,7 @@
                             <i class="nav-icon icon-wallet"></i>Campeonatos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="/times">
                             <i class="nav-icon icon-wallet"></i>Times</a>
                     </li>
                 </ul>

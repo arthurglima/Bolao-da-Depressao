@@ -5,10 +5,10 @@
 
     <div class="card" style="margin: 15px">
         <div class="card-header">
-            <i class="fa icon-diamond"></i> Bolões
+            <i class="fa icon-diamond"></i> Times
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createBolao"
                     style="position: absolute;right: 20px;top: 10px;">
-                <i class="fa icon-plus"></i> Criar Bolão
+                <i class="fa icon-plus"></i> Criar Time
             </button>
         </div>
         <div class="card-body">
