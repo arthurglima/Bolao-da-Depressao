@@ -15,7 +15,7 @@
     <div class="card" style="margin: 15px">
         <div class="card-header">
             <i class="fa icon-diamond"></i> Times
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createTime"
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#formTime"
                     style="position: absolute;right: 20px;top: 10px;">
                 <i class="fa icon-plus"></i> Criar Time
             </button>
@@ -27,17 +27,23 @@
                     <th style="width:100px;">Escudo</th>
                     <th>Nome</th>
                     <th>Alias</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($times as $time)
                     <tr>
                         <td style="text-align:center">
-                            <img width="50" style="border-radius: 31px !important;"
+                            <img width="35" style="border-radius: 31px !important;"
                                  src="{{asset('storage/'.$time->escudo)}}" alt="">
                         </td>
                         <td>{{$time->nome}}</td>
                         <td>{{$time->alias}}</td>
+                        <td>
+                            <button class="btn btn-sm" data-toggle="modal" data-target="#formTime{{$time->id ?? null}}">
+                                Editar
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -46,42 +52,10 @@
     </div>
 
     <!-- Modal Criação de bolão-->
-    <div class="modal fade" id="createTime"
-         tabindex="-1" role="dialog"
-         aria-labelledby="createBolaoLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form method="POST" action="{{ url('times')  }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createBolaoLabel">Criar novo time</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="campeonato">Nome do time</label>
-                            <input type="text" class="form-control" id="nome" name="nome"
-                                   placeholder="Digite o nome do time">
-                        </div>
-                        <div class="form-group">
-                            <label for="alias">Apelido</label>
-                            <input type="text" class="form-control" id="alias" name="alias"
-                                   placeholder="Digite o nome do bolão">
-                        </div>
-                        <div class="form-group">
-                            <label for="escudo">Escudo</label><br/>
-                            <input type="file" name="escudo">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Criar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('times.form')
+    @foreach($times as $time)
+        @include('times.form', $time);
+    @endforeach
 
 @endsection
 

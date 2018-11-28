@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Time extends TimeModel
 {
-  private $id;
-  private $nome;
-  private $alias;
-  private $escudo;
 
   /**
    * Time constructor.
