@@ -26,7 +26,7 @@
                 <tr>
                     <th style="width:100px;">Escudo</th>
                     <th>Nome</th>
-                    <th>Alias</th>
+                    <th>Apelido</th>
                     <th></th>
                 </tr>
                 </thead>

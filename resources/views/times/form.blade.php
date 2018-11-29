@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="escudo">Escudo</label><br/>
-                        <input type="file" name="escudo">
+                        <input size="3" accept="image/jpeg,image/png" type="file" name="escudo">
                     </div>
                 </div>
                 <div class="modal-footer">
