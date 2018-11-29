@@ -37,7 +37,6 @@
         </div>
     </div>
 
-    <!-- Modal Criação de bolão-->
     <div class="modal fade" id="createBolao"
          tabindex="-1" role="dialog"
          aria-labelledby="createBolaoLabel" aria-hidden="true">
