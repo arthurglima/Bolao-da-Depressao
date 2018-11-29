@@ -21,7 +21,7 @@ class Campeonato extends CampeonatoModel
   /**
    * Verifica se existe jogos em alguma fase do campeonato
    */
-  private function hasJogosEmFase()
+  private function hasJogosEmFases()
   {
     $hasFases = $this->Fases()->join('jogo', function ($join) {
       $join->on('jogo.fase_id', '=', 'fase.id')
@@ -141,7 +141,7 @@ class Campeonato extends CampeonatoModel
    */
   public function delete()
   {
-    if ($this->hasJogosEmFase()) {
+    if ($this->hasJogosEmFases()) {
       throw new \Exception("Existem jogos associados a esse campeonato, não pode ser removido");
     } else {
       $this->removeFases();
