@@ -49,9 +49,31 @@ class TimeController extends Controller
    * Atualiza um time
    * @param Request $request
    * @param $id - Identificador do time
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function update(Request $request, $id)
   {
+    $file = $request->file('escudo', null);
+    $time = (new Time())->getById($id);
+    $time->setEscudo($file);
 
+    if ($time->update($request->all())) {
+      return redirect('times')->with('success', 'Time atualizado com sucesso');
+    }
+
+  }
+
+  /**
+   * Remove um time do sistema
+   * @param $id
+   * @return \Illuminate\Http\RedirectResponse
+   * @throws \Exception
+   */
+  public function destroy($id)
+  {
+    $time = (new Time())->getById($id);
+    if ($time->delete()) {
+      return redirect('times')->with('success', 'Time removido com sucesso');
+    }
   }
 }

@@ -40,9 +40,19 @@
                         <td>{{$time->nome}}</td>
                         <td>{{$time->alias}}</td>
                         <td>
-                            <button class="btn btn-sm" data-toggle="modal" data-target="#formTime{{$time->id ?? null}}">
-                                Editar
-                            </button>
+
+                            <div class="float-right">
+                                <button class="btn btn-sm" data-toggle="modal"
+                                        data-target="#deleteTime{{$time->id ?? null}}"> Remover
+                                </button>
+                            </div>
+                            <div class="float-right">
+
+                                <button class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#formTime{{$time->id ?? null}}">
+                                    Editar
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -51,11 +61,15 @@
         </div>
     </div>
 
-    <!-- Modal Criação de bolão-->
+    {{--Modal Criação de bolão--}}
     @include('times.form')
+    {{--Formes de atualização--}}
     @foreach($times as $time)
-        @include('times.form', $time);
+        @include('times.form', $time)
     @endforeach
-
+    {{--Modal de deleção--}}
+    @foreach($times as $time)
+        @include('times.delete', $time)
+    @endforeach
 @endsection
 

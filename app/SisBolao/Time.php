@@ -108,6 +108,18 @@ class Time extends TimeModel
   }
 
   /**
+   * Retorna o time pelo ID;
+   * @param int $id - Identificador do Time
+   * @return Time
+   */
+  public function getById(int $id)
+  {
+    $time = $this->where('id', '=', $id)->first();
+    $this->fillFields($time->toArray());
+    return $time;
+  }
+
+  /**
    * Salva o time em banco de dados;
    * @param array $options
    * @return bool
