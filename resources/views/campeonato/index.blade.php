@@ -12,26 +12,32 @@
             </button>
         </div>
         <div class="card-body">
-            <table class="table table-responsive-sm table-bordered table-striped table-sm">
+            <table class="table table-responsive-md table-striped">
                 <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Campeonato</th>
-                    <th>É Moderado?</th>
-                    <th>Data Inicio do Bolão</th>
                     <th>Data de criação</th>
-                    <th>Valor Premiação</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Meu Bolão</td>
                     <td>Brasileirão 2018</td>
-                    <td>Sim</td>
                     <td>10/11/2018</td>
-                    <td>R$ 200,00</td>
                     <td>
-                        <span class="badge badge-success">Active</span>
+
+                        <div class="float-right">
+                            <button class="btn btn-sm" data-toggle="modal"
+                                    data-target="#deleteTime{{$time->id ?? null}}"> Remover
+                            </button>
+                        </div>
+                        <div class="float-right">
+
+                            <button class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#formTime{{$time->id ?? null}}">
+                                Editar
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 </tbody>

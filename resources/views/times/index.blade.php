@@ -27,6 +27,7 @@
                     <th style="width:100px;">Escudo</th>
                     <th>Nome</th>
                     <th>Apelido</th>
+                    <th>Data de criação</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         </td>
                         <td>{{$time->nome}}</td>
                         <td>{{$time->alias}}</td>
+                        <td>{{$Carbon::parse($time->created_at)->format('d/m/Y')}}</td>
                         <td>
 
                             <div class="float-right">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\SisBolao\Time;
 
@@ -25,7 +26,8 @@ class TimeController extends Controller
   public function index()
   {
     $times = Time::all();
-    return view('times.index', compact('times'));
+    $Carbon = new Carbon();
+    return view('times.index', compact('times', 'Carbon'));
   }
 
   /**
