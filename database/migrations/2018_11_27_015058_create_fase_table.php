@@ -19,6 +19,8 @@ class CreateFaseTable extends Migration
       $table->integer('ordem');
       $table->integer('campeonato_id')->unsigned();
       $table->foreign('campeonato_id')->references('id')->on('campeonato');
+      $table->date('data_inicial')->nullable();
+      $table->date('data_final')->nullable();
       $table->timestamps();
     });
   }
