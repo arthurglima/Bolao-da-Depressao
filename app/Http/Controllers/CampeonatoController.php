@@ -27,7 +27,7 @@ class CampeonatoController extends Controller
   {
     $campeonatos = Campeonato::all();
     $Carbon = new Carbon();
-    return view('campeonato.index', compact('campeonatos'));
+    return view('campeonato.index', compact('campeonatos', 'Carbon'));
   }
 
   /**
@@ -48,7 +48,11 @@ class CampeonatoController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $campeonato = (new Campeonato())->fill($request->all());
+
+    if ($campeonato->save()) {
+      return redirect('campeonato')->with('success', 'Campeonato criado com sucesso');
+    }
   }
 
   /**

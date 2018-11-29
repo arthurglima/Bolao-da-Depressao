@@ -74,12 +74,10 @@
 
     {{--Modal Criação de bolão--}}
     @include('times.form')
-    {{--Formes de atualização--}}
     @foreach($times as $time)
+        {{--Formes de atualização--}}
         @include('times.form', $time)
-    @endforeach
-    {{--Modal de deleção--}}
-    @foreach($times as $time)
+        {{--Modal de deleção--}}
         @include('times.delete', $time)
     @endforeach
 @endsection

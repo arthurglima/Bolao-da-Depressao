@@ -3,6 +3,15 @@
 @section('content')
     <script src="js/bolao.js"></script>
 
+    @if(@session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{@session('success')}}</strong>
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    @endif
+
     <div class="card" style="margin: 15px">
         <div class="card-header">
             <i class="fa icon-layers"></i> Campeonatos
@@ -28,18 +37,20 @@
                         <td>{{$campeonato->fase_qtd}}</td>
                         <td>{{$Carbon::parse($campeonato->created_at)->format('d/m/Y')}}</td>
                         <td>
-
                             <div class="float-right">
                                 <button class="btn btn-sm" data-toggle="modal"
                                         data-target="#deleteCampeonato{{$campeonato->id ?? null}}"> Remover
                                 </button>
                             </div>
                             <div class="float-right">
-
                                 <button class="btn btn-sm btn-primary" data-toggle="modal"
                                         data-target="#formCampeonato{{$campeonato->id ?? null}}">
                                     Editar
                                 </button>
+                            </div>
+                            <div class="float-right">
+                                <a class="btn btn-sm btn-warning"> Gerenciar
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -59,6 +70,11 @@
 
     {{--Modal de criação--}}
     @include('campeonato.form')
-
+    @foreach($campeonatos as $campeonato)
+        {{--Formes de atualização--}}
+        @include('campeonato.form', $campeonato)
+        {{--Modal de deleção--}}
+        @include('campeonato.delete', $campeonato)
+    @endforeach
 @endsection
 

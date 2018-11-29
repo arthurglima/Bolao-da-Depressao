@@ -90,4 +90,16 @@ class Campeonato extends CampeonatoModel
     return $time;
   }
 
+  /**
+   * Criação do Campeonato, ao cria o campeonato todas as fase devem ser criadas
+   * @param array $options
+   * @return bool
+   */
+  public function save(array $options = [])
+  {
+
+
+    return parent::save($options);
+  }
+
 }
