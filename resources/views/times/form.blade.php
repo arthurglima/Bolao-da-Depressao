@@ -24,14 +24,14 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="campeonato">Nome do time</label>
-                        <input type="text" class="form-control" id="nome" name="nome"
+                        <input type="text" class="form-control" id="nome" name="nome" required
                                value="{{$nome ?? null}}"
                                placeholder="Digite o nome do time">
                     </div>
                     <div class="form-group">
                         <label for="alias">Apelido</label>
                         <input type="text" class="form-control" id="alias" name="alias"
-                               value="{{$alias  ?? null}}"
+                               value="{{$alias  ?? null}}" required
                                placeholder="Digite o nome do bolão">
                     </div>
                     <div class="form-group">
