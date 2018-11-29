@@ -14,7 +14,7 @@
 
     <div class="card" style="margin: 15px">
         <div class="card-header">
-            <i class="fa icon-diamond"></i> Times
+            <i class="fa icon-people"></i> Times
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#formTime"
                     style="position: absolute;right: 20px;top: 10px;">
                 <i class="fa icon-plus"></i> Criar Time
