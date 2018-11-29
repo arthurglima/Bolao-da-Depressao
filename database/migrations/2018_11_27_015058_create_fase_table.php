@@ -16,6 +16,7 @@ class CreateFaseTable extends Migration
     Schema::create('fase', function (Blueprint $table) {
       $table->increments('id');
       $table->string('nome', 70);
+      $table->integer('ordem');
       $table->integer('campeonato_id')->unsigned();
       $table->foreign('campeonato_id')->references('id')->on('campeonato');
       $table->timestamps();

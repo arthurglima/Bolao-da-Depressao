@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\SisBolao\Campeonato;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DB;
 
 class CampeonatoController extends Controller
 {
@@ -31,39 +32,24 @@ class CampeonatoController extends Controller
   }
 
   /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
+   * Adiciona um novo campeonato
    * @param  \Illuminate\Http\Request $request
    * @return \Illuminate\Http\Response
    */
   public function store(Request $request)
   {
-    $campeonato = (new Campeonato())->fill($request->all());
+    try {
+      DB::beginTransaction();
+      $campeonato = (new Campeonato())->fill($request->all());
+      if ($campeonato->save()) {
+        return redirect('campeonato')->with('success', 'Campeonato criado com sucesso');
+      }
 
-    if ($campeonato->save()) {
-      return redirect('campeonato')->with('success', 'Campeonato criado com sucesso');
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return redirect('campeonato')->with('error', 'Campeonato criado com sucesso');
     }
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-    //
   }
 
   /**
@@ -86,17 +72,25 @@ class CampeonatoController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    $time = (new Campeonato())->getById($id);
+
+    if ($time->update($request->all())) {
+      return redirect('campeonato')->with('success', 'Campeonato atualizado com sucesso');
+    }
   }
 
+
   /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int $id
-   * @return \Illuminate\Http\Response
+   * Remove um campeonato do sistema
+   * @param $id
+   * @return \Illuminate\Http\RedirectResponse
+   * @throws \Exception
    */
   public function destroy($id)
   {
-    //
+    $campeonato = (new Campeonato())->getById($id);
+    if ($campeonato->delete()) {
+      return redirect('times')->with('success', 'Time removido com sucesso');
+    }
   }
 }
