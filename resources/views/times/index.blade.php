@@ -2,16 +2,6 @@
 
 @section('content')
     <script src="js/times.js"></script>
-
-    @if(@session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{@session('success')}}</strong>
-            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-    @endif
-
     <div class="card" style="margin: 15px">
         <div class="card-header">
             <i class="fa icon-people"></i> Times
