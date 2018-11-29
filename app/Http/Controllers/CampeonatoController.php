@@ -46,7 +46,7 @@ class CampeonatoController extends Controller
         DB::commit();
         return redirect('campeonato')->with('success', 'Campeonato criado com sucesso');
       }
-      
+
     } catch (\Exception $e) {
       DB::rollback();
       return redirect('campeonato')->with('error', $e->getMessage());
