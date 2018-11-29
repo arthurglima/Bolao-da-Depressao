@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SisBolao\Campeonato;
 use Illuminate\Http\Request;
 
 class CampeonatoController extends Controller
@@ -23,7 +24,8 @@ class CampeonatoController extends Controller
    */
   public function index()
   {
-    return view('campeonato.index');
+    $champs = Campeonato::all();
+    return view('campeonato.index', compact('champs'));
   }
 
   /**

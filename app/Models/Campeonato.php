@@ -9,6 +9,6 @@ class Campeonato extends Model
   protected $table = 'campeonato';
 
   protected $fillable = [
-    'nome'
+    'nome', 'fase_qtd'
   ];
 }
