@@ -2,7 +2,7 @@
 
 namespace App\SisBolao;
 
-use App\Time as TimeModel;
+use App\Models\Time as TimeModel;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
