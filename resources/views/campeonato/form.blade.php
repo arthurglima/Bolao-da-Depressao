@@ -18,7 +18,7 @@
                                placeholder="Digite o nome do bolão">
                     </div>
                     <div class="form-group">
-                        <label for="nome">Quantidade de fases</label>
+                        <label for="nome">Quantidade de rodadas</label>
                         <input type="number" class="form-control" id="nome" required
                                placeholder="Digite o nome do bolão">
                     </div>

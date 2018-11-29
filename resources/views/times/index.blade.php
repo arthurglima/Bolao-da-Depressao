@@ -58,6 +58,15 @@
                         </td>
                     </tr>
                 @endforeach
+                @if(count($times) == 0)
+                    <tr>
+                        <td style="text-align:center"></td>
+                        <td>Nenhum time foi encontrado</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endif
                 </tbody>
             </table>
         </div>

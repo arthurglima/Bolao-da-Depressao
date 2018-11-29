@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SisBolao\Campeonato;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CampeonatoController extends Controller
@@ -24,8 +25,9 @@ class CampeonatoController extends Controller
    */
   public function index()
   {
-    $champs = Campeonato::all();
-    return view('campeonato.index', compact('champs'));
+    $campeonatos = Campeonato::all();
+    $Carbon = new Carbon();
+    return view('campeonato.index', compact('campeonatos'));
   }
 
   /**
