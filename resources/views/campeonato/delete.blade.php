@@ -4,7 +4,7 @@
      aria-labelledby="createBolaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="POST" action="{{ url('campeonato', ['id' => $time->id ?? null])  }}">
+            <form method="POST" action="{{ url('campeonato', ['id' => $id ?? null])  }}">
                 @method('DELETE') @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="bolaoLabel">Remover {{$nome}}?</h5>

@@ -41,14 +41,15 @@ class CampeonatoController extends Controller
     try {
       DB::beginTransaction();
       $campeonato = (new Campeonato())->fill($request->all());
+
       if ($campeonato->save()) {
+        DB::commit();
         return redirect('campeonato')->with('success', 'Campeonato criado com sucesso');
       }
-
-      DB::commit();
+      
     } catch (\Exception $e) {
       DB::rollback();
-      return redirect('campeonato')->with('error', 'Campeonato criado com sucesso');
+      return redirect('campeonato')->with('error', $e->getMessage());
     }
   }
 
@@ -72,10 +73,13 @@ class CampeonatoController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $time = (new Campeonato())->getById($id);
-
-    if ($time->update($request->all())) {
-      return redirect('campeonato')->with('success', 'Campeonato atualizado com sucesso');
+    try {
+      $campeonato = (new Campeonato())->getById($id);
+      if ($campeonato->update($request->all())) {
+        return redirect('campeonato')->with('success', 'Campeonato atualizado com sucesso');
+      }
+    } catch (\Exception $e) {
+      return redirect('campeonato')->with('error', $e->getMessage());
     }
   }
 
@@ -88,9 +92,13 @@ class CampeonatoController extends Controller
    */
   public function destroy($id)
   {
-    $campeonato = (new Campeonato())->getById($id);
-    if ($campeonato->delete()) {
-      return redirect('times')->with('success', 'Time removido com sucesso');
+    try {
+      $campeonato = (new Campeonato())->getById($id);
+      if ($campeonato->delete()) {
+        return redirect('campeonato')->with('success', 'Campeonato removido com sucesso');
+      }
+    } catch (\Exception $e) {
+      return redirect('campeonato')->with('error', $e->getMessage());
     }
   }
 }

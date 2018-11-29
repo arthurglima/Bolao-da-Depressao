@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: victorious
- * Date: 28/11/18
- * Time: 22:52
- */
 
 namespace App\SisBolao;
 
@@ -93,7 +87,6 @@ class Fase extends FaseModel
   {
     $this->campeonato_id = $campeonato_id;
   }
-
 
   /**
    * Função que define todos os atributos da classe
