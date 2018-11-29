@@ -88,9 +88,6 @@
         <a class="btn" href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fa fa-lock"></i> Logout</a>
-        <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
-            <span class="navbar-toggler-icon"></span>
-        </button>
     </header>
     <div class="app-body" style="position: absolute;">
         <div class="sidebar">
@@ -109,11 +106,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/campeonato">
-                            <i class="nav-icon icon-wallet"></i>Campeonatos</a>
+                            <i class="nav-icon icon-layers"></i>Campeonatos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/times">
-                            <i class="nav-icon icon-wallet"></i>Times</a>
+                            <i class="nav-icon icon-people"></i>Times</a>
                     </li>
                 </ul>
             </nav>
