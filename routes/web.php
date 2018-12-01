@@ -20,5 +20,6 @@ Auth::routes();
 
 Route::resource('/boloes', 'BolaoController');
 Route::resource('/times', 'TimeController');
+Route::resource('/fase', 'FaseController');
 Route::resource('/campeonato', 'CampeonatoController');
 Route::get('/home', 'HomeController@index')->name('home');

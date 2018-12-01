@@ -21,7 +21,7 @@ class Campeonato extends CampeonatoModel
   /**
    * Verifica se existe jogos em alguma fase do campeonato
    */
-  private function hasJogosEmFases()
+  public function hasJogosEmFases()
   {
     $hasFases = $this->Fases()->join('jogo', function ($join) {
       $join->on('jogo.fase_id', '=', 'fase.id')
@@ -123,7 +123,9 @@ class Campeonato extends CampeonatoModel
   public function criarFases()
   {
     for ($i = 0; $i < $this->fase_qtd; $i++) {
-      Fase::create(['nome' => ($i + 1) . 'ª Rodada', 'campeonato_id' => $this->id, 'ordem' => $i + 1]);
+      $fase = new Fase(['nome' => ($i + 1) . 'ª Rodada', 'campeonato_id' => $this->id, 'ordem' => $i + 1]);
+      Fase::create();
+      $fase->save();
     }
   }
 

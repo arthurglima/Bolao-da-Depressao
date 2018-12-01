@@ -41,8 +41,11 @@ class CampeonatoController extends Controller
     try {
       DB::beginTransaction();
       $campeonato = (new Campeonato())->fill($request->all());
+      $created = $campeonato->create($request->all());
+      $campeonato = $campeonato->getById($created->id);
 
-      if ($campeonato->save()) {
+      if ($created !== null) {
+        $campeonato->criarFases();
         DB::commit();
         return redirect('campeonato')->with('success', 'Campeonato criado com sucesso');
       }
@@ -51,34 +54,6 @@ class CampeonatoController extends Controller
       DB::rollback();
       return redirect('campeonato')->with('error', $e->getMessage());
     }
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int $id
-   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-   */
-  public function show($id)
-  {
-    $campeonato = (new Campeonato())->getById($id);
-
-    if (!$campeonato->hasFases()) {
-      $campeonato->criarFases();
-    };
-
-    return view('campeonato.manager', compact('campeonato'));
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    //
   }
 
   /**
@@ -111,8 +86,14 @@ class CampeonatoController extends Controller
   {
     try {
       $campeonato = (new Campeonato())->getById($id);
-      if ($campeonato->delete()) {
-        return redirect('campeonato')->with('success', 'Campeonato removido com sucesso');
+      /** Verifica a existencia de jogos, caso exista não é possível remover o campeonato */
+      if (!$campeonato->hasJogosEmFases()) {
+        if ($campeonato->delete()) {
+          return redirect('campeonato')->with('success', 'Campeonato removido com sucesso');
+        }
+
+      } else {
+        return redirect('campeonato')->with('error', 'Campeonato tem jogos, não é possível remover');
       }
     } catch (\Exception $e) {
       return redirect('campeonato')->with('error', $e->getMessage());

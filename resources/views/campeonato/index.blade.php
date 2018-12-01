@@ -40,7 +40,7 @@
                             </div>
                             <div class="float-right">
                                 <a class="btn btn-sm btn-warning"
-                                   href="{{url('campeonato', ['id' => $campeonato->id])}}">
+                                   data-target="#chooseFase{{$campeonato->id ?? null}}">
                                     Gerenciar
                                 </a>
                             </div>
@@ -67,6 +67,9 @@
         @include('campeonato.form', $campeonato)
         {{--Modal de deleção--}}
         @include('campeonato.delete', $campeonato)
+
+        @include('campeonato.choose-round', ['campeonato_id'=> $campeonato->id, 'fases' =>$campeonato->Fases])
+
     @endforeach
 @endsection
 
