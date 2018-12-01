@@ -96,6 +96,14 @@ class Campeonato extends CampeonatoModel
     return $this->hasMany(Fase::class, 'campeonato_id', 'id');
   }
 
+  /**
+   * Verifica se existem fases criadas no campeonato
+   */
+  public function hasFases()
+  {
+    return $this->Fases->count() > 0;
+  }
+
 
   /**
    * @param array $attributes
@@ -106,6 +114,16 @@ class Campeonato extends CampeonatoModel
       if (in_array($key, $this->fillable)) {
         $this->{$key} = $value;
       }
+    }
+  }
+
+  /**
+   * Criação de fases de um campeonato;
+   */
+  public function criarFases()
+  {
+    for ($i = 0; $i < $this->fase_qtd; $i++) {
+      Fase::create(['nome' => ($i + 1) . 'ª Rodada', 'campeonato_id' => $this->id, 'ordem' => $i + 1]);
     }
   }
 

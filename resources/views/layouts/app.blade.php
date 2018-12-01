@@ -16,20 +16,20 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <!-- Icons-->
-    <link href="icons/css/coreui-icons.min.css" rel="stylesheet">
-    <link href="vendor/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="/vendor/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
-    <link href="css/coreuistyle.min.css" rel="stylesheet">
-    <link href="vendor/pace-progress/css/pace.min.css" rel="stylesheet">
+    <link href="/css/coreuistyle.min.css" rel="stylesheet">
+    <link href="/vendor/pace-progress/css/pace.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
           rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 @guest

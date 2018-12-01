@@ -57,6 +57,23 @@ class CampeonatoController extends Controller
    * Show the form for editing the specified resource.
    *
    * @param  int $id
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function show($id)
+  {
+    $campeonato = (new Campeonato())->getById($id);
+
+    if (!$campeonato->hasFases()) {
+      $campeonato->criarFases();
+    };
+
+    return view('campeonato.manager', compact('campeonato'));
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int $id
    * @return \Illuminate\Http\Response
    */
   public function edit($id)

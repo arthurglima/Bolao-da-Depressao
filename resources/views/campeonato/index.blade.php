@@ -39,7 +39,9 @@
                                 </button>
                             </div>
                             <div class="float-right">
-                                <a class="btn btn-sm btn-warning"> Gerenciar
+                                <a class="btn btn-sm btn-warning"
+                                   href="{{url('campeonato', ['id' => $campeonato->id])}}">
+                                    Gerenciar
                                 </a>
                             </div>
                         </td>
