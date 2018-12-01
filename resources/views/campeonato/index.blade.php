@@ -39,7 +39,7 @@
                                 </button>
                             </div>
                             <div class="float-right">
-                                <a class="btn btn-sm btn-warning"
+                                <a class="btn btn-sm btn-warning" data-toggle="modal"
                                    data-target="#chooseFase{{$campeonato->id ?? null}}">
                                     Gerenciar
                                 </a>

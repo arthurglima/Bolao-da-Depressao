@@ -4,6 +4,10 @@
     <div class="card" style="margin: 15px">
         <div class="card-header">
             <i class="fa icon-arrow-right-circle"></i> {{$campeonato->nome}} - {{$fase->nome}}
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editFase{{$fase->id ?? null}}"
+                    style="position: absolute;right: 150px;top: 10px;">
+                <i class="fa icon-note"></i> Editar rodada
+            </button>
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addJogoFase{{$fase->id ?? null}}"
                     style="position: absolute;right: 20px;top: 10px;">
                 <i class="fa icon-plus"></i> Adicionar Jogo
@@ -30,6 +34,7 @@
 
     {{--Modal de criação de jogo--}}
     @include('campeonato.jogo-modal', ['id' => $fase->id, 'nome' => $fase->nome])
+    @include('fase.form', $fase)
 
 @endsection
 
