@@ -18,30 +18,36 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="campeonato">Campeonato</label>
-                        <input type="text" class="form-control" id="campeonato_id" name="campeonato_id"
-                               required
-                               value="{{$nome ?? null}}"
-                               placeholder="Digite o nome do time">
+                    <input type="hidden" name="fase_campeonato_id" value="{{$fase->campeonato_id}}">
+                    <input type="hidden" name="fase_id" value="{{$fase->id}}">
+                    <div class="row">
+                        <div class="form-group col col-6">
+                            <label for="campeonato">Data do jogo</label>
+                            <input required class="form-control" type="date" name="data_jogo"/>
+                        </div>
+                        <div class="form-group col col-6">
+                            <label for="campeonato">Hora do jogo</label>
+                            <input required class="form-control" type="time" name="hora_jogo"/>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="alias">Apelido</label>
-                        <input type="text" class="form-control" id="alias" name="alias"
-                               value="{{$alias  ?? null}}" required
-                               placeholder="Digite o nome do bolão">
-                    </div>
-                    <div class="form-group">
-                        <label for="escudo">Escudo</label><br/>
-                        <input size="3" accept="image/jpeg,image/png" type="file" name="escudo">
+                    <div class="row">
+                        <div class="form-group col col-6">
+                            <label for="campeonato">Time mandante</label>
+                            <input type="text" class="form-control" id="time_id_mandante" name="time_id_mandante"
+                                   required
+                                   value="{{$nome ?? null}}"
+                                   placeholder="Digite o nome do time">
+                        </div>
+                        <div class="form-group  col col-6">
+                            <label for="alias">Time visitante</label>
+                            <input type="text" class="form-control" id="time_id_visitante" name="time_id_visitante"
+                                   value="{{$alias  ?? null}}" required
+                                   placeholder="Digite o nome do bolão">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    @if(isset($id))
-                        <button type="submit" class="btn btn-primary">Atualizar</button>
-                    @else
-                        <button type="submit" class="btn btn-primary">Criar</button>
-                    @endif
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
                 </div>
             </form>
         </div>

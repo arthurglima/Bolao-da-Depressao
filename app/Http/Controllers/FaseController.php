@@ -21,15 +21,6 @@ class FaseController extends Controller
   }
 
   /**
-   * Show the application dashboard.
-   *
-   * @return void
-   */
-  public function index()
-  {
-  }
-
-  /**
    * Show the form for editing the specified resource.
    *
    * @param Request $request
@@ -42,18 +33,6 @@ class FaseController extends Controller
     $fase = $campeonato->Fases()->where('id', '=', $request->input('fase'))->first();
     $Carbon = new Carbon();
     return view('fase.manager', compact('campeonato', 'fase', 'Carbon'));
-  }
-
-
-  /**
-   * Realiza a criação de um novo time
-   * @param Request $request - Objeto de request mandado pela VIEW
-   * @return void
-   */
-  public function store(Request $request)
-  {
-
-
   }
 
   /**
@@ -74,15 +53,6 @@ class FaseController extends Controller
     } catch (\Exception $e) {
       return redirect('campeonato')->with('error', $e->getMessage());
     }
-  }
-
-  /**
-   * Remove um time do sistema
-   * @param $id
-   * @return void
-   */
-  public function destroy($id)
-  {
   }
 }
 
