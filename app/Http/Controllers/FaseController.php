@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\SisBolao\Campeonato;
+use App\SisBolao\Fase;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FaseController extends Controller
@@ -38,7 +40,8 @@ class FaseController extends Controller
   {
     $campeonato = (new Campeonato())->getById($id);
     $fase = $campeonato->Fases()->where('id', '=', $request->input('fase'))->first();
-    return view('fase.manager', compact('campeonato', 'fase'));
+    $Carbon = new Carbon();
+    return view('fase.manager', compact('campeonato', 'fase', 'Carbon'));
   }
 
 
@@ -57,10 +60,20 @@ class FaseController extends Controller
    * Atualiza um time
    * @param Request $request
    * @param $id - Identificador do time
-   * @return void
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function update(Request $request, $id)
   {
+    try {
+      $rodada = (new Fase())->getById($id);
+      if ($rodada->update($request->all())) {
+        $request->input('fase', $rodada->getId());
+        return redirect()->back()
+          ->with('success', 'Rodada atualizada com sucesso');
+      }
+    } catch (\Exception $e) {
+      return redirect('campeonato')->with('error', $e->getMessage());
+    }
   }
 
   /**
@@ -72,3 +85,4 @@ class FaseController extends Controller
   {
   }
 }
+

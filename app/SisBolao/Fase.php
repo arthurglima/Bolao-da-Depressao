@@ -17,6 +17,18 @@ class Fase extends FaseModel
   }
 
   /**
+   * Retorna o campeonato pelo ID;
+   * @param int $id - Identificador do Time
+   * @return Fase
+   */
+  public function getById(int $id)
+  {
+    $fase = $this->where('id', '=', $id)->first();
+    $this->fillFields($fase->toArray());
+    return $fase;
+  }
+
+  /**
    * Retorna o Identificador da fase
    * @return mixed
    */

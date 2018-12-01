@@ -8,5 +8,5 @@ class Fase extends Model
 {
   protected $table = 'fase';
 
-  protected $fillable = ['nome', 'campeonato_id', 'ordem'];
+  protected $fillable = ['nome', 'campeonato_id', 'ordem', 'data_inicial', 'data_final'];
 }

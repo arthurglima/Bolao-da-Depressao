@@ -17,7 +17,15 @@
                         <label for="fase">Rodada</label>
                         <select name="fase" id="fase" class="form-control">
                             @foreach($fases as $fase)
-                                <option value="{{$fase->id}}">{{$fase->nome}}</option>
+                                <option value="{{$fase->id}}">
+                                    {{$fase->nome}}
+                                    @if($fase->data_inicial !== null)
+                                        | De {{$Carbon::parse($fase->data_inicial)->format('d/m/Y')}}
+                                    @endif
+                                    @if($fase->data_final !== null)
+                                        até {{$Carbon::parse($fase->data_final)->format('d/m/Y')}}
+                                    @endif
+                                </option>
                             @endforeach
                         </select>
                     </div>

@@ -3,7 +3,10 @@
 @section('content')
     <div class="card" style="margin: 15px">
         <div class="card-header">
-            <i class="fa icon-arrow-right-circle"></i> {{$campeonato->nome}} - {{$fase->nome}}
+            <i class="fa icon-arrow-right-circle"></i>
+            {{$campeonato->nome}} - {{$fase->nome}}
+            @if($fase->data_inicial !== null)| De {{$Carbon::parse($fase->data_inicial)->format('d/m/Y')}} @endif -
+            @if($fase->data_final !== null) até {{$Carbon::parse($fase->data_final)->format('d/m/Y')}} @endif
             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editFase{{$fase->id ?? null}}"
                     style="position: absolute;right: 150px;top: 10px;">
                 <i class="fa icon-note"></i> Editar rodada
