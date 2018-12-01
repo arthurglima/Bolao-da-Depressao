@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\SisBolao\Time;
+use DB;
+use Response;
 
 class TimeController extends Controller
 {
@@ -76,5 +78,19 @@ class TimeController extends Controller
     if ($time->delete()) {
       return redirect('times')->with('success', 'Time removido com sucesso');
     }
+  }
+
+  /**
+   * Retorna uma lista JSON de times
+   * @param Request $request - Objeto da view
+   * @return JSON
+   */
+  public function getTimesByName(Request $request)
+  {
+    $query = $request->input('term');
+    $times = Time::select('nome as value', 'id')
+      ->where(DB::raw('lower(nome)'), 'like', '%' . strtolower($query) . '%')->get();
+
+    return Response::json($times);
   }
 }

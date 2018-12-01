@@ -17,6 +17,30 @@ class Fase extends FaseModel
   }
 
   /**
+   * Retorna todos os jogos de uma rodada
+   */
+  public function Jogos()
+  {
+
+    return $this->hasMany(Jogo::class, 'fase_id', 'id')
+      ->select(
+        'jogo.hora_jogo',
+        'jogo.resultado_mandante',
+        'jogo.resultado_visitante',
+        'mandante.id as time_id_mandante',
+        'mandante.nome as time_nome_mandante',
+        'mandante.escudo as time_escudo_mandante',
+        'visitante.id as time_id_visitante',
+        'visitante.nome as time_nome_visitante',
+        'visitante.escudo as time_escudo_visitante'
+      )
+      ->join('time as mandante', 'mandante.id', '=', 'jogo.time_id_mandante')
+      ->join('time as visitante', 'visitante.id', '=', 'jogo.time_id_visitante')
+      ->where('fase_campeonato_id', '=', $this->getCampeonatoId());
+
+  }
+
+  /**
    * Retorna o campeonato pelo ID;
    * @param int $id - Identificador do Time
    * @return Fase

@@ -18,8 +18,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::resource('/boloes', 'BolaoController');
+
+Route::get('/times/getbyname', 'TimeController@getTimesByName');
 Route::resource('/times', 'TimeController');
+
 Route::resource('/fase', 'FaseController');
+
+Route::resource('/jogo', 'JogoController');
+
 Route::resource('/campeonato', 'CampeonatoController');
+
 Route::get('/home', 'HomeController@index')->name('home');

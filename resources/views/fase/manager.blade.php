@@ -20,15 +20,36 @@
             <table class="table table-responsive-sm table-striped">
                 <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Status</th>
+                    <th>Mandante</th>
+                    <th>Visitante</th>
+                    <th>Data/Hora de Inicio</th>
+                    <th>Placar</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Yiorgos Avraamu</td>
-                    <td>Member</td>
-                </tr>
+                @foreach($fase->Jogos as $jogo)
+                    <tr>
+                        <td>
+                            <img width="35" style="border-radius: 31px !important;"
+                                 src="{{asset('storage/'.$jogo->time_escudo_mandante)}}" alt="">
+                            {{$jogo->time_nome_mandante}}
+                        </td>
+                        <td>
+                            <img width="35" style="border-radius: 31px !important;"
+                                 src="{{asset('storage/'.$jogo->time_escudo_visitante)}}" alt="">
+                            {{$jogo->time_nome_visitante}}
+                        </td>
+                        <td>{{\Carbon\Carbon::parse($jogo->data_inicio)->format('d/m/Y')}} - {{$jogo->hora_jogo}}</td>
+                        <td>{{$jogo->resultado_mandante}} X {{$jogo->resultado_visitante}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#formTime{{$time->id ?? null}}">
+                                Editar Placar
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
 
@@ -36,8 +57,9 @@
     </div>
 
     {{--Modal de criação de jogo--}}
-    @include('campeonato.jogo-modal', ['id' => $fase->id, 'nome' => $fase->nome])
+    @include('jogo.jogo-modal', ['id' => $fase->id, 'nome' => $fase->nome])
     @include('fase.form', $fase)
 
 @endsection
+
 

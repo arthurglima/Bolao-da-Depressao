@@ -22,6 +22,7 @@
     <link href="/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
     <link href="/css/coreuistyle.min.css" rel="stylesheet">
+    <link href="/vendor/jquery/jquery-ui.css" rel="stylesheet">
     <link href="/vendor/pace-progress/css/pace.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
           rel="stylesheet">

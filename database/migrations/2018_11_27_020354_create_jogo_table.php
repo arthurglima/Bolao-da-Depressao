@@ -24,8 +24,8 @@ class CreateJogoTable extends Migration
       $table->foreign('time_id_visitante')->references('id')->on('time');
       $table->date('data_jogo');
       $table->time('hora_jogo');
-      $table->integer('resultado_mandante');
-      $table->integer('resultado_visitante');
+      $table->integer('resultado_mandante')->default(0);
+      $table->integer('resultado_visitante')->default(0);
       $table->primary(['fase_id', 'fase_campeonato_id']);
       $table->timestamps();
     });

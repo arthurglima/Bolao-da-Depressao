@@ -14,7 +14,6 @@
             <table class="table table-responsive-md table-striped">
                 <thead>
                 <tr>
-                    <th style="width:100px;">Escudo</th>
                     <th>Nome</th>
                     <th>Apelido</th>
                     <th>Data de criação</th>
@@ -24,11 +23,9 @@
                 <tbody>
                 @foreach($times as $time)
                     <tr>
-                        <td style="text-align:center">
-                            <img width="35" style="border-radius: 31px !important;"
-                                 src="{{asset('storage/'.$time->escudo)}}" alt="">
+                        <td><img width="35" style="border-radius: 31px !important;"
+                                 src="{{asset('storage/'.$time->escudo)}}" alt=""> {{$time->nome}}
                         </td>
-                        <td>{{$time->nome}}</td>
                         <td>{{$time->alias}}</td>
                         <td>{{$Carbon::parse($time->created_at)->format('d/m/Y')}}</td>
                         <td>
