@@ -29,4 +29,25 @@ class JogoController extends Controller
       return redirect()->back()->with('error', $e->getMessage());
     }
   }
+
+  /**
+   * Executa a atualizaçao de um jogo
+   * @param Request $request - Objeto de request com dados POST
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function update(Request $request)
+  {
+    try {
+      $jogo = (new Jogo($request->all()))->getById();
+
+      if ($jogo->update($request->all())) {
+        return redirect()->back()->with('success', 'Placar do jogo atualizado');
+      }
+
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', $e->getMessage());
+    }
+
+
+  }
 }

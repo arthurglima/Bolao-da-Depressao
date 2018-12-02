@@ -17,10 +17,8 @@ class CreatePalpiteTable extends Migration
       $table->increments('id');
       $table->integer('palpite_mandante');
       $table->integer('palpite_visitante');
-      $table->integer('jogo_fase_id')->unsigned();
-      $table->foreign('jogo_fase_id')->references('fase_id')->on('jogo');
-      $table->integer('jogo_fase_campeonato_id')->unsigned();
-      $table->foreign('jogo_fase_campeonato_id')->references('fase_campeonato_id')->on('jogo');
+      $table->integer('jogo_id')->unsigned();
+      $table->foreign('jogo_id')->references('id')->on('jogo');
       $table->integer('bolao_has_user_bolao_id')->unsigned();
       $table->foreign('bolao_has_user_bolao_id')->references('bolao_id')->on('bolao_has_user');
       $table->integer('bolao_has_user_users_id')->unsigned();

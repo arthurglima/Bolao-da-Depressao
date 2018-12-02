@@ -5,8 +5,8 @@
      aria-labelledby="formJogo" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="POST" action="{{ url('jogo')  }}" enctype="multipart/form-data">
-                @method('POST') @csrf
+            <form method="POST" action="{{ url('jogo/modificarPlacar')  }}">
+                @method('PUT') @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="bolaoLabel">Modificar Placar</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -14,7 +14,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    <input type="hidden" id="fase_id" value="{{$fase_id}}" name="fase_id">
+                    <input type="hidden" id="fase_campeonato_id" value="{{$fase_campeonato_id}}"
+                           name="fase_campeonato_id">
+                    <input type="hidden" id="time_id_mandante" value="{{$time_id_mandante}}" name="time_id_mandante">
+                    <input type="hidden" id="time_id_visitante" value="{{$time_id_visitante}}" name="time_id_visitante">
                     <div class="row">
                         <div class="col text-center">
                             <img width="35"

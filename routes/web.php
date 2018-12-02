@@ -26,6 +26,7 @@ Route::resource('/times', 'TimeController');
 
 Route::resource('/fase', 'FaseController');
 
+Route::put('/jogo/modificarPlacar', 'JogoController@update');
 Route::resource('/jogo', 'JogoController');
 
 Route::resource('/campeonato', 'CampeonatoController');

@@ -124,7 +124,6 @@ class Campeonato extends CampeonatoModel
   {
     for ($i = 0; $i < $this->fase_qtd; $i++) {
       $fase = new Fase(['nome' => ($i + 1) . 'ª Rodada', 'campeonato_id' => $this->id, 'ordem' => $i + 1]);
-      Fase::create();
       $fase->save();
     }
   }

@@ -14,6 +14,7 @@ class CreateJogoTable extends Migration
   public function up()
   {
     Schema::create('jogo', function (Blueprint $table) {
+      $table->increments('id');
       $table->integer('fase_id')->unsigned();
       $table->foreign('fase_id')->references('id')->on('fase');
       $table->integer('fase_campeonato_id')->unsigned();
@@ -26,7 +27,6 @@ class CreateJogoTable extends Migration
       $table->time('hora_jogo');
       $table->integer('resultado_mandante')->default(0);
       $table->integer('resultado_visitante')->default(0);
-      $table->primary(['fase_id', 'fase_campeonato_id', 'time_id_mandante', 'time_id_visitante']);
       $table->timestamps();
     });
   }
