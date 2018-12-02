@@ -24,15 +24,19 @@ class Fase extends FaseModel
 
     return $this->hasMany(Jogo::class, 'fase_id', 'id')
       ->select(
+        'jogo.fase_id',
+        'jogo.fase_campeonato_id',
         'jogo.hora_jogo',
         'jogo.data_jogo',
         'jogo.resultado_mandante',
         'jogo.resultado_visitante',
         'mandante.id as time_id_mandante',
         'mandante.nome as time_nome_mandante',
+        'mandante.alias as time_apelido_mandante',
         'mandante.escudo as time_escudo_mandante',
         'visitante.id as time_id_visitante',
         'visitante.nome as time_nome_visitante',
+        'visitante.alias as time_apelido_visitante',
         'visitante.escudo as time_escudo_visitante'
       )
       ->join('time as mandante', 'mandante.id', '=', 'jogo.time_id_mandante')

@@ -44,7 +44,7 @@
                         <td>{{$jogo->resultado_mandante}} X {{$jogo->resultado_visitante}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#formTime{{$time->id ?? null}}">
+                                    data-target="#atualizarPlacar{{$jogo->fase_id}}{{$jogo->fase_campeonato_id}}{{$jogo->time_id_mandante}}{{$jogo->time_id_visitante}}">
                                 Editar Placar
                             </button>
                         </td>
@@ -60,6 +60,9 @@
     @include('jogo.jogo-modal', ['id' => $fase->id, 'nome' => $fase->nome])
     @include('fase.form', $fase)
 
+    @foreach($fase->Jogos as $jogo)
+        @include('jogo.atualizar-placar', $jogo)
+    @endforeach
 @endsection
 
 
