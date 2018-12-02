@@ -24,6 +24,7 @@ class Fase extends FaseModel
 
     return $this->hasMany(Jogo::class, 'fase_id', 'id')
       ->select(
+        'jogo.id',
         'jogo.fase_id',
         'jogo.fase_campeonato_id',
         'jogo.hora_jogo',

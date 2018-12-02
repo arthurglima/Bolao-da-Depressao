@@ -43,16 +43,13 @@ class Jogo extends JogoModel
   }
 
   /**
-   * Retorna um jogo pela super chave
+   * Retorna um jogo pela chave
+   * @param $id - identificador do jogo
    * @return Jogo
    */
-  public function getById()
+  public function getById($id)
   {
-    return $this->where('fase_id', '=', $this->fase_id)
-      ->where('fase_campeonato_id', '=', $this->fase_campeonato_id)
-      ->where('time_id_mandante', '=', $this->time_id_mandante)
-      ->where('time_id_visitante', '=', $this->time_id_visitante)
-      ->first();
+    return $this->where('id', '=', $id)->first();
   }
 
 

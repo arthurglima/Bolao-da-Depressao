@@ -1,11 +1,11 @@
 <!-- Atualização de placar -->
 <div class="modal fade"
-     id="atualizarPlacar{{$fase_id}}{{$fase_campeonato_id}}{{$time_id_mandante}}{{$time_id_visitante}}"
+     id="atualizarPlacar{{$id}}"
      tabindex="-1" role="dialog"
      aria-labelledby="formJogo" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="POST" action="{{ url('jogo/modificarPlacar')  }}">
+            <form method="POST" action="{{ url('jogo', ['id' => $id])  }}">
                 @method('PUT') @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="bolaoLabel">Modificar Placar</h5>

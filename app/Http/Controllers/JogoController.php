@@ -33,12 +33,13 @@ class JogoController extends Controller
   /**
    * Executa a atualizaçao de um jogo
    * @param Request $request - Objeto de request com dados POST
+   * @param $id - Identificador do jogo
    * @return \Illuminate\Http\RedirectResponse
    */
-  public function update(Request $request)
+  public function update(Request $request, $id)
   {
     try {
-      $jogo = (new Jogo($request->all()))->getById();
+      $jogo = (new Jogo($request->all()))->getById($id);
 
       if ($jogo->update($request->all())) {
         return redirect()->back()->with('success', 'Placar do jogo atualizado');

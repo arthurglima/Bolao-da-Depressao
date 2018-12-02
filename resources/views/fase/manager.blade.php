@@ -44,7 +44,7 @@
                         <td>{{$jogo->resultado_mandante}} X {{$jogo->resultado_visitante}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#atualizarPlacar{{$jogo->fase_id}}{{$jogo->fase_campeonato_id}}{{$jogo->time_id_mandante}}{{$jogo->time_id_visitante}}">
+                                    data-target="#atualizarPlacar{{$jogo->id}}">
                                 Editar Placar
                             </button>
                         </td>
