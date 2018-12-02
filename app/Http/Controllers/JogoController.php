@@ -16,12 +16,17 @@ class JogoController extends Controller
   public function store(Request $request)
   {
     try {
+
+      if ($request->input('time_id_mandante') == null || $request->input('time_id_visitante') == null) {
+        throw new \Exception('Time mandante e visitante são obrigatórios.');
+      }
+
       $jogo = new Jogo($request->all());
       if ($jogo->save()) {
         return redirect()->back()->with('success', 'Jogo adicionado na rodada');
       }
     } catch (\Exception $e) {
-      return redirect()->back()->with('success', $e->getMessage());
+      return redirect()->back()->with('error', $e->getMessage());
     }
   }
 }

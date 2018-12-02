@@ -25,6 +25,7 @@ class Fase extends FaseModel
     return $this->hasMany(Jogo::class, 'fase_id', 'id')
       ->select(
         'jogo.hora_jogo',
+        'jogo.data_jogo',
         'jogo.resultado_mandante',
         'jogo.resultado_visitante',
         'mandante.id as time_id_mandante',
@@ -36,7 +37,9 @@ class Fase extends FaseModel
       )
       ->join('time as mandante', 'mandante.id', '=', 'jogo.time_id_mandante')
       ->join('time as visitante', 'visitante.id', '=', 'jogo.time_id_visitante')
-      ->where('fase_campeonato_id', '=', $this->getCampeonatoId());
+      ->where('fase_campeonato_id', '=', $this->getCampeonatoId())
+      ->orderBy('data_jogo')
+      ->orderBy('hora_jogo');
 
   }
 

@@ -68,15 +68,26 @@ class TimeController extends Controller
 
   /**
    * Remove um time do sistema
-   * @param $id
+   * @param $id - identificador do time
    * @return \Illuminate\Http\RedirectResponse
    * @throws \Exception
    */
   public function destroy($id)
   {
-    $time = (new Time())->getById($id);
-    if ($time->delete()) {
-      return redirect('times')->with('success', 'Time removido com sucesso');
+    try {
+
+      $time = (new Time())->getById($id);
+
+      /** Caso o time em questão esteja associado a um jogo, não é possível remove-lo */
+      if ($time->isInGame()) {
+        throw new \Exception("Time associado a algum jogo em um campeonato não pode ser removido");
+      }
+
+      if ($time->delete()) {
+        return redirect('times')->with('success', 'Time removido com sucesso');
+      }
+    } catch (\Exception $e) {
+      return redirect('times')->with('error', $e->getMessage());
     }
   }
 

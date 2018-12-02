@@ -31,16 +31,16 @@
                 @foreach($fase->Jogos as $jogo)
                     <tr>
                         <td>
-                            <img width="35" style="border-radius: 31px !important;"
+                            <img width="35"
                                  src="{{asset('storage/'.$jogo->time_escudo_mandante)}}" alt="">
                             {{$jogo->time_nome_mandante}}
                         </td>
                         <td>
-                            <img width="35" style="border-radius: 31px !important;"
+                            <img width="35"
                                  src="{{asset('storage/'.$jogo->time_escudo_visitante)}}" alt="">
                             {{$jogo->time_nome_visitante}}
                         </td>
-                        <td>{{\Carbon\Carbon::parse($jogo->data_inicio)->format('d/m/Y')}} - {{$jogo->hora_jogo}}</td>
+                        <td>{{\Carbon\Carbon::parse($jogo->data_jogo)->format('d/m/Y')}} - {{$jogo->hora_jogo}}</td>
                         <td>{{$jogo->resultado_mandante}} X {{$jogo->resultado_visitante}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary" data-toggle="modal"
