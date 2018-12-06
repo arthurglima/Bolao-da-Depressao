@@ -32,7 +32,7 @@
                         <label for="alias">Apelido</label>
                         <input type="text" class="form-control" id="alias" name="alias"
                                value="{{$alias  ?? null}}" required
-                               placeholder="Digite o nome do bolão">
+                               placeholder="Digite o apelido do time">
                     </div>
                     <div class="form-group">
                         <label for="escudo">Escudo</label><br/>
