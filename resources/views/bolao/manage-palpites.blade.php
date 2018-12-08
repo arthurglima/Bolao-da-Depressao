@@ -10,7 +10,7 @@
             <a class="nav-link" href="classificacao">Classificação</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="palpites">Palpites</a>
+            <a class="nav-link active" href="palpites">Meus palpites</a>
         </li>
         <li class="nav-item">
             <a class="nav-link " href="moderacao">Moderação</a>
@@ -27,7 +27,7 @@
                 <th>Mandante</th>
                 <th>Visitante</th>
                 <th class="text-center">Palpites</th>
-                <th>Status</th>
+                <th>Status do jogo</th>
                 <th></th>
             </tr>
             </thead>

@@ -10,7 +10,7 @@
             <a class="nav-link" href="classificacao">Classificação</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="palpites">Palpites</a>
+            <a class="nav-link" href="palpites">Meus palpites</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="moderacao">Moderação</a>

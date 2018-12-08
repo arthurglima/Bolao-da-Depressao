@@ -98,7 +98,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/home">
                             <i class="nav-icon icon-speedometer"></i> Mural
-                            <span class="badge badge-primary">NEW</span>
                         </a>
                     </li>
                     <li class="nav-item">
