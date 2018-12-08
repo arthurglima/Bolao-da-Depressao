@@ -105,14 +105,16 @@
                         <a class="nav-link" href="/boloes">
                             <i class="nav-icon icon-diamond"></i>Meus Bolões</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/campeonato">
-                            <i class="nav-icon icon-layers"></i>Campeonatos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/times">
-                            <i class="nav-icon icon-people"></i>Times</a>
-                    </li>
+                    @if(Auth::user()->type == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="/campeonato">
+                                <i class="nav-icon icon-layers"></i>Campeonatos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/times">
+                                <i class="nav-icon icon-people"></i>Times</a>
+                        </li>
+                    @endif
                 </ul>
             </nav>
         </div>

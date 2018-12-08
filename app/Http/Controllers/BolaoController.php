@@ -27,7 +27,6 @@ class BolaoController extends Controller
   {
     $campeonatos = Campeonato::all();
     $boloes = (new Bolao())->getAll();
-
     return view('bolao.index', compact('campeonatos', 'boloes'));
   }
 
@@ -53,7 +52,7 @@ class BolaoController extends Controller
    * Display the specified resource.
    *
    * @param $bolao_id - identificador do bolao
-   * @return \Illuminate\Http\Response
+   * @return void
    */
   public function show($bolao_id)
   {
@@ -68,7 +67,8 @@ class BolaoController extends Controller
   public function getClassificacao($bolao_id)
   {
     $bolao = (new Bolao())->getById($bolao_id);
-    return view('bolao.manage-classificacao', compact('bolao'));
+    $classificacao = $bolao->classificacao();
+    return view('bolao.manage-classificacao', compact('bolao', 'classificacao'));
   }
 
   /**

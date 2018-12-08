@@ -8,8 +8,9 @@
 
 namespace App\SisBolao;
 
+use App\Models\Palpite as PalpiteModel;
 
-class Palpite
+class Palpite extends PalpiteModel
 {
 
 }

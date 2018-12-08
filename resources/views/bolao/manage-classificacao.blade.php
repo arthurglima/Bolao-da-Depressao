@@ -23,25 +23,25 @@
         <table class="table table-responsive-md table-striped">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Campeonato</th>
-                <th>É Moderado?</th>
-                <th>Data Inicio do Bolão</th>
-                <th>Data de criação</th>
-                <th>Valor Premiação</th>
-                <th></th>
+                <th class="text-center">Posição</th>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Acertou Placar</th>
+                <th class="text-center">Gols Vencedor</th>
+                <th class="text-center">Gols Perdedor</th>
+                <th class="text-center">Total</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @foreach($classificacao as $key => $item)
+                <tr>
+                    <td class="text-center"><b>{{$key + 1}} º</b></td>
+                    <td class="text-center">{{$item->name}}</td>
+                    <td class="text-center">{{$item->placar}}</td>
+                    <td class="text-center">{{$item->gols_vencedor}}</td>
+                    <td class="text-center">{{$item->gols_perdedor}}</td>
+                    <td class="text-center">{{  $item->placar +  $item->gols_vencedor + $item->gols_perdedor}}</td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
 
