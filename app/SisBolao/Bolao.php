@@ -113,7 +113,7 @@ class Bolao extends BolaoModel
   }
 
   /**
-   * Retorna os palpites do bolao
+   * Retorna os palpites do bolao de acordo com a data da rodada
    */
   public function getPalpites()
   {
@@ -136,13 +136,52 @@ class Bolao extends BolaoModel
         $join->on('p.bolao_has_user_bolao_id', '=', 'bolao.id')
           ->where('p.bolao_has_user_users_id', '=', Auth::user()->id);
       })
-      ->join('jogo as j', 'j.id', 'p.jogo_id')
-      ->join('time as mandante', 'mandante.id', 'j.time_id_mandante')
-      ->join('time as visitante', 'visitante.id', 'j.time_id_visitante')
-      ->join('jogo_status as js', 'js.id', 'j.jogo_status_id')
+      ->join('jogo as j', 'j.id', '=', 'p.jogo_id')
+      ->join('time as mandante', 'mandante.id', '=', 'j.time_id_mandante')
+      ->join('time as visitante', 'visitante.id', '=', 'j.time_id_visitante')
+      ->join('jogo_status as js', 'js.id', '=', 'j.jogo_status_id')
+      ->join('fase as f', function ($join) {
+        $join->on('f.campeonato_id', '=', 'j.fase_campeonato_id')
+          ->whereRaw('curdate() BETWEEN f.data_inicial AND f.data_final');
+      })
       ->orderBy('data_jogo', 'desc')
       ->orderBy('hora_jogo', 'desc')
       ->get();
+  }
+
+  /**
+   * Retorna todos os possiveis jogo para a rodada corrente
+   */
+  public function getPossiveisJogosDaRodada()
+  {
+    return DB::select(DB::raw("
+          SELECT
+            p.id,
+            p.palpite_mandante,
+            p.palpite_visitante,
+            j.resultado_mandante,
+            j.resultado_visitante,
+            j.id as jogo_id,
+            j.data_jogo,
+            j.hora_jogo,
+            js.nome          AS status_nome,
+            mandante.nome    AS mandante_nome,
+            mandante.alias   AS mandante_alias,
+            mandante.escudo  AS mandante_escudo,
+            visitante.nome   AS visitante_nome,
+            visitante.alias  AS visitante_alias,
+            visitante.escudo AS visitante_escudo,
+            f.nome as rodada
+          FROM jogo AS j
+            LEFT JOIN palpite AS p ON p.jogo_id = j.id AND p.bolao_has_user_users_id = " . Auth::user()->id . "
+            INNER JOIN time AS mandante ON mandante.id = j.time_id_mandante
+            INNER JOIN time AS visitante ON visitante.id = j.time_id_visitante
+            INNER JOIN jogo_status AS js ON js.id = j.jogo_status_id
+            INNER JOIN fase f ON
+                                (j.fase_campeonato_id = f.campeonato_id
+                                 AND curdate() BETWEEN f.data_inicial AND f.data_final)
+          ORDER BY data_jogo DESC, hora_jogo DESC
+    "));
 
   }
 

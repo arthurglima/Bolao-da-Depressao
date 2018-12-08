@@ -23,6 +23,7 @@ Route::get('/boloes/{bolao_id}/convidar', 'BolaoController@getInvites');
 Route::get('/boloes/{bolao_id}/moderacao', 'BolaoController@getModeracao');
 Route::get('/boloes/{bolao_id}/palpites', 'BolaoController@getPalpites');
 Route::get('/boloes/{bolao_id}/classificacao', 'BolaoController@getClassificacao');
+Route::post('/boloes/palpites', 'BolaoController@salvarPalpites');
 Route::resource('/boloes', 'BolaoController');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -73,7 +73,7 @@
     </div>
 
 
-    @include('bolao.manage-palpites-modal', ['bolao'=> $bolao])
+    @include('bolao.manage-palpites-modal', ['bolao'=> $bolao, 'possibles' => $possibles])
 
 
 @endsection

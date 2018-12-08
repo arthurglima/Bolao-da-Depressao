@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SisBolao\Bolao;
 use App\SisBolao\Campeonato;
+use App\SisBolao\Palpite;
 use Illuminate\Http\Request;
 
 class BolaoController extends Controller
@@ -80,7 +81,8 @@ class BolaoController extends Controller
   {
     $bolao = (new Bolao())->getById($bolao_id);
     $palpites = $bolao->getPalpites();
-    return view('bolao.manage-palpites', compact('bolao', 'palpites'));
+    $possibles = $bolao->getPossiveisJogosDaRodada();
+    return view('bolao.manage-palpites', compact('bolao', 'palpites', 'possibles'));
   }
 
   /**
@@ -104,6 +106,25 @@ class BolaoController extends Controller
   {
     $bolao = (new Bolao())->getById($bolao_id);
     return view('bolao.manage-invite', compact('bolao'));
+  }
+
+  /**
+   * Atualiza e salva os palpites de um usuário no bolão
+   * @param Request $request
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function salvarPalpites(Request $request)
+  {
+    try {
+      $palpites = $request->input('palpites');
+      foreach ($palpites as $palpite) {
+        $p = new Palpite($palpite);
+        $p->updateOrCreate($palpite);
+      }
+      return redirect()->back()->with('success', 'Palpite atualizado com sucesso');
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', $e->getMessage());
+    }
   }
 
 }
