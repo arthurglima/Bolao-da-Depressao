@@ -20,6 +20,13 @@
         </li>
     </ul>
     <div class="content" style="padding: 15px">
+        <div style="padding-bottom: 10px">
+            <button class="btn btn-sm btn-primary"
+                    data-toggle="modal"
+                    data-target="#formBolaoPalpite">
+                Gerenciar meus palpites
+            </button>
+        </div>
         <table class="table table-responsive-md table-striped">
             <thead>
             <tr>
@@ -60,5 +67,10 @@
         </table>
 
     </div>
+
+
+    @include('bolao.manage-palpites-modal', ['bolao'=> $bolao])
+
+
 @endsection
 

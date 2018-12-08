@@ -21,7 +21,7 @@
                         <div class="form-group col col-6">
                             <label for="campeonato">Campeonato</label>
                             <select class="form-control" id="campeonato" name="campeonato_id" required>
-                                <option value="null"></option>
+                                <option></option>
                                 @foreach($campeonatos as $campeonato)
                                     <option value="{{$campeonato->id}}">{{$campeonato->nome}}</option>
                                 @endforeach

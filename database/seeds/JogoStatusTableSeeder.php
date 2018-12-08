@@ -17,6 +17,7 @@ class JogoStatusTableSeeder extends Seeder
       ['id' => 1, 'nome' => 'Mandante ganhou'],
       ['id' => 2, 'nome' => 'Visitante ganhou'],
       ['id' => 3, 'nome' => 'Empate'],
+      ['id' => 4, 'nome' => 'Aguardando dia/hora']
 
     ]);
   }
