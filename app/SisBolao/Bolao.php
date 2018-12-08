@@ -50,8 +50,9 @@ class Bolao extends BolaoModel
 
   /**
    * Retorna a classificação de usuários de um bolão
+   * @return mixed
    */
-  public function classificacao()
+  public function getClassificacao()
   {
 
     $placar = Palpite::select(DB::raw('count(palpite.id)'))
@@ -108,6 +109,38 @@ class Bolao extends BolaoModel
       ->get();
 
     return $list;
+  }
+
+  /**
+   * Retorna os palpites do bolao
+   */
+  public function getPalpites()
+  {
+    return $this->select(
+      'p.palpite_mandante',
+      'p.palpite_visitante',
+      'j.resultado_mandante',
+      'j.resultado_visitante',
+      'j.data_jogo',
+      'j.hora_jogo',
+      'js.nome as status_nome',
+      'mandante.nome as mandante_nome',
+      'mandante.alias as mandante_alias',
+      'mandante.escudo as mandante_escudo',
+      'visitante.nome as visitante_nome',
+      'visitante.alias as visitante_alias',
+      'visitante.escudo as visitante_escudo'
+    )
+      ->join('palpite as p', function ($join) {
+        $join->on('p.bolao_has_user_bolao_id', '=', 'bolao.id')
+          ->where('p.bolao_has_user_users_id', '=', Auth::user()->id);
+      })
+      ->join('jogo as j', 'j.id', 'p.jogo_id')
+      ->join('time as mandante', 'mandante.id', 'j.time_id_mandante')
+      ->join('time as visitante', 'visitante.id', 'j.time_id_visitante')
+      ->join('jogo_status as js', 'js.id', 'j.jogo_status_id')
+      ->get();
+
   }
 
   /**

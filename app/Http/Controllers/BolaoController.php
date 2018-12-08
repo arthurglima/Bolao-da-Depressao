@@ -67,7 +67,7 @@ class BolaoController extends Controller
   public function getClassificacao($bolao_id)
   {
     $bolao = (new Bolao())->getById($bolao_id);
-    $classificacao = $bolao->classificacao();
+    $classificacao = $bolao->getClassificacao();
     return view('bolao.manage-classificacao', compact('bolao', 'classificacao'));
   }
 
@@ -79,7 +79,8 @@ class BolaoController extends Controller
   public function getPalpites($bolao_id)
   {
     $bolao = (new Bolao())->getById($bolao_id);
-    return view('bolao.manage-palpites', compact('bolao'));
+    $palpites = $bolao->getPalpites();
+    return view('bolao.manage-palpites', compact('bolao', 'palpites'));
   }
 
   /**

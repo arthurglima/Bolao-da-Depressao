@@ -23,7 +23,8 @@
                 <tbody>
                 @foreach($times as $time)
                     <tr>
-                        <td><img width="35"
+                        <td>
+                            <img width="35"
                                  src="{{asset('storage/'.$time->escudo)}}" alt=""> {{$time->nome}}
                         </td>
                         <td>{{$time->alias}}</td>

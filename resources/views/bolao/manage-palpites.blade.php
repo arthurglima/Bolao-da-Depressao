@@ -23,25 +23,39 @@
         <table class="table table-responsive-md table-striped">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Campeonato</th>
-                <th>É Moderado?</th>
-                <th>Data Inicio do Bolão</th>
-                <th>Data de criação</th>
-                <th>Valor Premiação</th>
+                <th>Data / Hora do jogo</th>
+                <th>Mandante</th>
+                <th>Visitante</th>
+                <th class="text-center">Palpites</th>
+                <th>Status</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @foreach($palpites as $palpite)
+                <tr>
+                    <td>
+                        {{ \Carbon\Carbon::parse($palpite->data_jogo)->format('d/m/Y')  }} / {{$palpite->hora_jogo}}
+                    </td>
+                    <td>
+                        <img width="35"
+                             src="{{asset('storage/'.$palpite->mandante_escudo)}}" alt="">
+                        {{$palpite->mandante_alias}}
+                    </td>
+                    <td>
+                        <img width="35"
+                             src="{{asset('storage/'.$palpite->visitante_escudo)}}" alt="">
+                        {{$palpite->visitante_alias}}
+                    </td>
+                    <td class="text-center">
+                        {{$palpite->palpite_mandante}} X {{$palpite->palpite_visitante}}
+                    </td>
+                    <td>
+                        {{$palpite->status_nome}}
+                    </td>
+                    <td></td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
 
