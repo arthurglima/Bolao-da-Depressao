@@ -60,7 +60,8 @@ class Bolao extends BolaoModel
           ->on('palpite.palpite_mandante', '=', 'j.resultado_mandante')
           ->on('palpite.palpite_visitante', '=', 'j.resultado_visitante');
       })
-      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id);
+      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
+      ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
 
     $golsvencedor = Palpite::select(DB::raw('count(palpite.id)'))
       ->join('jogo as j', function ($j) {
@@ -73,7 +74,8 @@ class Bolao extends BolaoModel
             ['palpite.palpite_visitante', '>', 'j.resultado_mandante']
           ]);
       })
-      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id);
+      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
+      ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
 
     $golsperdedor = Palpite::select(DB::raw('count(palpite.id)'))
       ->join('jogo as j', function ($j) {
@@ -86,7 +88,8 @@ class Bolao extends BolaoModel
             ['palpite.palpite_visitante', '<', 'j.resultado_mandante']
           ]);
       })
-      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id);
+      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
+      ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
 
 
     $list = User::select(
@@ -97,7 +100,12 @@ class Bolao extends BolaoModel
       DB::raw('(' . $golsperdedor->toSql() . ') as gols_perdedor')
     )
       ->setBindings(array_merge($placar->getBindings(), $golsvencedor->getBindings(), $golsperdedor->getBindings()))
-      ->orderBy('placar', 'gols_vencedor', 'gols_perdedor')
+      ->join('bolao_has_user as bhu', function ($join) {
+        $join->on('users.id', '=', 'bhu.users_id');
+      })
+      ->orderBy('placar', 'DESC')
+      ->orderBy('gols_vencedor', 'DESC')
+      ->orderBy('gols_perdedor', 'DESC')
       ->get();
 
     return $list;
