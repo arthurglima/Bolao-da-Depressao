@@ -93,6 +93,7 @@ class Bolao extends BolaoModel
       ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
 
     $list = User::select(
+      'users.id',
       'users.name',
       'users.email',
       DB::raw('(' . $placar->toSql() . ') as placar'),

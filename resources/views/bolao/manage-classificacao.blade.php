@@ -34,8 +34,20 @@
             <tbody>
             @foreach($classificacao as $key => $item)
                 <tr>
-                    <td class="text-center"><b>{{$key + 1}} º</b></td>
-                    <td class="text-center">{{$item->name}}</td>
+                    <td class="text-center">
+                        @if(\Illuminate\Support\Facades\Auth::user()->id == $item->id)
+                            <b>{{$key + 1}} º</b>
+                        @else
+                            {{$key + 1}} º
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        @if(\Illuminate\Support\Facades\Auth::user()->id == $item->id)
+                            <b>{{$item->name . " (Você)"}}</b>
+                        @else
+                            {{$item->name}}
+                        @endif
+                    </td>
                     <td class="text-center">{{$item->placar}}</td>
                     <td class="text-center">{{$item->gols_vencedor}}</td>
                     <td class="text-center">{{$item->gols_perdedor}}</td>
