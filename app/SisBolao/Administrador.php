@@ -7,20 +7,22 @@ use App\User;
 
 class Administrador extends User
 {
-  public $instance = null;
+  const ADMINISTRADOR = 1;
+  protected $table = 'users';
 
   public function __construct(array $attributes = [])
   {
-    parent::__construct($attributes);
+    $admin = Administrador::where('type', '=', self::ADMINISTRADOR)->first();
+    parent::__construct($admin->toArray());
   }
 
   /**
    * Retorna a instancia singleton do Administrador
    * @return mixed
    */
-  public function getInstance()
+  public static function getInstance(): Administrador
   {
-    return $this->instance;
+    return new Administrador();
   }
 
   public function updateSubjects()

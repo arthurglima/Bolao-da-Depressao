@@ -10,7 +10,6 @@ class Jogo extends Model
   protected $table = 'jogo';
 
   protected $fillable = [
-    'fase_id', 'fase_campeonato_id',
-    'time_id_mandante', 'time_id_visitante',
-    'data_jogo', 'hora_jogo', 'resultado_mandante', 'resultado_visitante'];
+    'fase_id', 'fase_campeonato_id', 'time_id_mandante', 'time_id_visitante',
+    'data_jogo', 'hora_jogo', 'resultado_mandante', 'resultado_visitante', 'jogo_status_id'];
 }

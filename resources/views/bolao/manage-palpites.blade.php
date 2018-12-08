@@ -34,6 +34,7 @@
                 <th>Mandante</th>
                 <th>Visitante</th>
                 <th class="text-center">Palpites</th>
+                <th class="text-center">Placar</th>
                 <th>Status do jogo</th>
                 <th></th>
             </tr>
@@ -56,6 +57,9 @@
                     </td>
                     <td class="text-center">
                         {{$palpite->palpite_mandante}} X {{$palpite->palpite_visitante}}
+                    </td>
+                    <td class="text-center">
+                        {{$palpite->resultado_mandante}} X {{$palpite->resultado_visitante}}
                     </td>
                     <td>
                         {{$palpite->status_nome}}

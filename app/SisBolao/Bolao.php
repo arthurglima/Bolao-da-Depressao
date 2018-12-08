@@ -140,6 +140,8 @@ class Bolao extends BolaoModel
       ->join('time as mandante', 'mandante.id', 'j.time_id_mandante')
       ->join('time as visitante', 'visitante.id', 'j.time_id_visitante')
       ->join('jogo_status as js', 'js.id', 'j.jogo_status_id')
+      ->orderBy('data_jogo', 'desc')
+      ->orderBy('hora_jogo', 'desc')
       ->get();
 
   }

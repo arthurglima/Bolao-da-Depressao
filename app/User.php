@@ -17,7 +17,7 @@ class User extends IObserver
    * @var array
    */
   protected $fillable = [
-    'name', 'email', 'password',
+    'name', 'email', 'password', 'type'
   ];
 
   /**
@@ -32,5 +32,10 @@ class User extends IObserver
   public function updateSubjects()
   {
     // TODO: Implement updateSubjects() method.
+  }
+
+  public function getType()
+  {
+    return $this->type;
   }
 }

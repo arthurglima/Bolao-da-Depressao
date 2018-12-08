@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\SisBolao\Administrador;
 use Closure;
 
 class RouteIsAllowed
@@ -15,7 +16,7 @@ class RouteIsAllowed
    */
   public function handle($request, Closure $next)
   {
-    if ($request->user()->type == 1) {
+    if ($request->user()->getType() == Administrador::ADMINISTRADOR) {
       return $next($request);
     } else {
       abort(404);
