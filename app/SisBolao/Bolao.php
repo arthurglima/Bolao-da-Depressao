@@ -91,7 +91,6 @@ class Bolao extends BolaoModel
       ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
       ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
 
-
     $list = User::select(
       'users.name',
       'users.email',
