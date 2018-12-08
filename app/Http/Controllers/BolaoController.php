@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\SisBolao\Bolao;
+use App\SisBolao\Campeonato;
 use Illuminate\Http\Request;
 
 class BolaoController extends Controller
@@ -23,17 +25,10 @@ class BolaoController extends Controller
    */
   public function index()
   {
-    return view('bolao.index');
-  }
+    $campeonatos = Campeonato::all();
+    $boloes = (new Bolao())->getAll();
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
+    return view('bolao.index', compact('campeonatos', 'boloes'));
   }
 
   /**
@@ -44,19 +39,72 @@ class BolaoController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    try {
+      $saved = (new Bolao($request->all()))->save();
+      if ($saved) {
+        return redirect('boloes')->with('success', 'Bolão criado com sucesso');
+      }
+    } catch (\Exception $e) {
+      return redirect('boloes')->with('error', $e->getMessage());
+    }
   }
 
   /**
    * Display the specified resource.
    *
-   * @param  int $id
+   * @param $bolao_id - identificador do bolao
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show($bolao_id)
   {
-    //
+    $bolao = (new Bolao())->getById($bolao_id);
   }
+
+  /**
+   * Retorna a classificação do bolao
+   * @param $bolao_id - identificador do bolao
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function getClassificacao($bolao_id)
+  {
+    $bolao = (new Bolao())->getById($bolao_id);
+    return view('bolao.manage-classificacao', compact('bolao'));
+  }
+
+  /**
+   * Retorna os palpites do usuário no bolao
+   * @param $bolao_id - identificador do bolao
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function getPalpites($bolao_id)
+  {
+    $bolao = (new Bolao())->getById($bolao_id);
+    return view('bolao.manage-palpites', compact('bolao'));
+  }
+
+  /**
+   * Retorna os palpites do usuário no bolao
+   * @param $bolao_id - identificador do bolao
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function getModeracao($bolao_id)
+  {
+    $bolao = (new Bolao())->getById($bolao_id);
+    return view('bolao.manage-moderacao', compact('bolao'));
+  }
+
+
+  /**
+   * Retorna os palpites do usuário no bolao
+   * @param $bolao_id - identificador do bolao
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function getInvites($bolao_id)
+  {
+    $bolao = (new Bolao())->getById($bolao_id);
+    return view('bolao.manage-invite', compact('bolao'));
+  }
+
 
   /**
    * Show the form for editing the specified resource.
@@ -66,7 +114,7 @@ class BolaoController extends Controller
    */
   public function edit($id)
   {
-    //
+    print_r($id . 'edit');
   }
 
   /**

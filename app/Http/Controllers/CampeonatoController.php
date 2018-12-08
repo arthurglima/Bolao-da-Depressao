@@ -87,13 +87,13 @@ class CampeonatoController extends Controller
     try {
       $campeonato = (new Campeonato())->getById($id);
       /** Verifica a existencia de jogos, caso exista não é possível remover o campeonato */
-      if (!$campeonato->hasJogosEmFases()) {
+      if (!$campeonato->hasJogosEmFases() || !$campeonato->hasBolaoAssociado()) {
         if ($campeonato->delete()) {
           return redirect('campeonato')->with('success', 'Campeonato removido com sucesso');
         }
 
       } else {
-        return redirect('campeonato')->with('error', 'Campeonato tem jogos, não é possível remover');
+        return redirect('campeonato')->with('error', 'Campeonato tem jogos ou bolões associados, não é possível remover');
       }
     } catch (\Exception $e) {
       return redirect('campeonato')->with('error', $e->getMessage());

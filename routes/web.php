@@ -19,6 +19,10 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::get('/boloes/{bolao_id}/convidar', 'BolaoController@getInvites');
+Route::get('/boloes/{bolao_id}/moderacao', 'BolaoController@getModeracao');
+Route::get('/boloes/{bolao_id}/palpites', 'BolaoController@getPalpites');
+Route::get('/boloes/{bolao_id}/classificacao', 'BolaoController@getClassificacao');
 Route::resource('/boloes', 'BolaoController');
 
 Route::get('/times/getbyname', 'TimeController@getTimesByName');

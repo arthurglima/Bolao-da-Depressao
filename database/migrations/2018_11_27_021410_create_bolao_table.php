@@ -17,8 +17,8 @@ class CreateBolaoTable extends Migration
       $table->increments('id');
       $table->string('nome', 200);
       $table->date('data_inicio');
-      $table->boolean('is_moderado');
-      $table->boolean('can_buscar');
+      $table->boolean('is_moderado')->default(0);
+      $table->boolean('can_buscar')->default(1);
       $table->integer('campeonato_id')->unsigned();
       $table->foreign('campeonato_id')->references('id')->on('campeonato');
       $table->double('valor_premiacao', 15, 2);

@@ -168,4 +168,12 @@ class Campeonato extends CampeonatoModel
     return parent::delete();
   }
 
+  /**
+   * Verifica se o campeonato tem bolão associado
+   */
+  public function hasBolaoAssociado()
+  {
+    return Bolao::where('campeonato_id', '=', $this->id)->get() > 0;
+  }
+
 }
