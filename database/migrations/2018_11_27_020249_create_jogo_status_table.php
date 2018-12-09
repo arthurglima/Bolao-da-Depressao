@@ -17,6 +17,7 @@ class CreateJogoStatusTable extends Migration
       $table->integer('id');
       $table->string('nome');
       $table->primary(['id']);
+      $table->index(['id']);
       $table->timestamps();
     });
   }
