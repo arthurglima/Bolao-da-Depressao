@@ -106,7 +106,8 @@ class BolaoController extends Controller
   public function getInvites($bolao_id)
   {
     $bolao = (new Bolao())->getById($bolao_id);
-    return view('bolao.manage-invite', compact('bolao'));
+    $seached = [];
+    return view('bolao.manage-invite', compact('bolao', 'seached'));
   }
 
   /**
@@ -143,7 +144,7 @@ class BolaoController extends Controller
       $bolao = (new Bolao())->getById($bolao_id);
       $bolao->decidirModeracao($esta_aprovado, $users_id);
 
-      return redirect()->back()->with('success', 'Moderação realizada');
+      return redirect()->back()->with('success', 'Confirmação realizada');
 
     } catch (\Exception $e) {
       return redirect()->back()->with('error', $e->getMessage());

@@ -24,31 +24,42 @@
         @endif
     </ul>
     <div class="content" style="padding: 15px">
-        <table class="table table-responsive-md table-striped">
-            <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Campeonato</th>
-                <th>É Moderado?</th>
-                <th>Data Inicio do Bolão</th>
-                <th>Data de criação</th>
-                <th>Valor Premiação</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
+        <form method="POST" action="{{ url('boloes/buscarpessoas', ['id' => $id ?? null])  }}"
+              class="form-inline my-2 my-lg-0">
+            @csrf @method('POST')
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar por nome ou email"
+                   aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
 
+        @if(!isset($seached) || count($seached) !== 0)
+            <table class="table table-responsive-md table-striped">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($seached as $item)
+                    <tr>
+                        <td>{{$item->nome}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-success"
+                                    data-toggle="modal"
+                                    data-target="#convidar{{$item->id}}"
+                                    style="color: white">
+                                Convidar
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
 @endsection
 
