@@ -12,12 +12,14 @@
         <li class="nav-item">
             <a class="nav-link" href="palpites">Meus palpites</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="moderacao">Moderação</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="convidar">Convidar Amigos</a>
-        </li>
+        @if($bolao->is_owner)
+            <li class="nav-item">
+                <a class="nav-link" href="moderacao">Moderação</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="convidar">Convidar Amigos</a>
+            </li>
+        @endif
     </ul>
     <div class="content" style="padding: 15px">
         <table class="table table-responsive-md table-striped">
