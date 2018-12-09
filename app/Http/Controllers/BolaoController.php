@@ -128,4 +128,26 @@ class BolaoController extends Controller
     }
   }
 
+  /**
+   * Decide a recusa ou confirmação de um usuário no bolão
+   * @param Request $request
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function decisaoDeModeracao(Request $request)
+  {
+    try {
+      $bolao_id = $request->input('bolao_id');
+      $esta_aprovado = $request->input('esta_aprovado');
+      $users_id = $request->input('users_id');
+
+      $bolao = (new Bolao())->getById($bolao_id);
+      $bolao->decidirModeracao($esta_aprovado, $users_id);
+
+      return redirect()->back()->with('success', 'Moderação realizada');
+
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', $e->getMessage());
+    }
+  }
+
 }

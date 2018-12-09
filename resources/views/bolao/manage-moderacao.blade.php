@@ -45,12 +45,6 @@
                                 style="color: white">
                             Aceitar
                         </button>
-                        <button class="btn btn-sm btn-danger"
-                                data-toggle="modal"
-                                data-target="#recusaModeracao{{$item->id}}"
-                                style="color: white">
-                            Recusar
-                        </button>
                     </td>
                 </tr>
             @endforeach
@@ -67,7 +61,6 @@
 
     @foreach($moderacao as $item)
         @include('bolao.confirm-moderacao', ['user' => $item]);
-        @include('bolao.recusa-moderacao', ['user' => $item]);
     @endforeach
 
 @endsection

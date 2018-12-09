@@ -3,7 +3,7 @@
      aria-labelledby="createBolaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="POST" action="{{ url('boloes', ['id' => $id ?? null])  }}">
+            <form method="POST" action="{{ url('boloes/decisaomoderacao')  }}">
                 @csrf
                 @if(isset($id))
                     @method('PUT')
@@ -17,6 +17,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="bolao_id" value="{{$user->bolao_id}}">
+                    <input type="hidden" name="users_id" value="{{$user->id}}">
+                    <input type="hidden" name="esta_aprovado" value="1">
                     Ao apertar no "Sim!" estará aceitando {{$user->nome}} no bolão.
                 </div>
                 <div class="modal-footer">

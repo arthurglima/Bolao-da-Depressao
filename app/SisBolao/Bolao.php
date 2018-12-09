@@ -206,12 +206,30 @@ class Bolao extends BolaoModel
       'u.id',
       'u.email',
       'u.name as nome',
-      'bhu.esta_aprovado'
+      'bhu.esta_aprovado',
+      'bhu.bolao_id'
     )
       ->join('bolao_has_user as bhu', 'bhu.bolao_id', '=', 'bolao.id')
       ->join('users as u', 'u.id', '=', 'bhu.users_id')
       ->where('esta_aprovado', '=', 0)
       ->get();
+  }
+
+  /**
+   * @param $decisao - 1 para confirmar, 0 - para recusar
+   * @param $user_id - identificador do usuário
+   * @return mixed
+   */
+  public function decidirModeracao($decisao, $user_id)
+  {
+    $confirmacao = BolaoHasUser::where('bolao_id', '=', $this->id)
+      ->where('users_id', '=', $user_id);
+
+    if ($decisao) {
+      $confirmacao->update(['esta_aprovado' => $decisao]);
+    } else {
+      $confirmacao->delete();
+    }
   }
 
   /**
