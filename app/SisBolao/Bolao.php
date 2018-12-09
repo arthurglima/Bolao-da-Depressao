@@ -153,11 +153,15 @@ class Bolao extends BolaoModel
     }
   }
 
-  public function save(array $options = [])
+  /**
+   * Cria um novo bolão
+   * @return bool
+   */
+  public function create()
   {
     $vars = get_object_vars($this);
-    $bolao = array_merge($vars, $vars['attributes']);
-    $bolao = Bolao::create($bolao);
+    $b = (new BolaoModel())->fill(array_merge($vars, $vars['attributes']))->toArray();
+    $bolao = BolaoModel::create($b);
     BolaoHasUser::create(['bolao_id' => $bolao->id, 'user_id' => Auth::user()->id, 'esta_aprovado' => 1, 'e_dono' => 1]);
     return true;
   }

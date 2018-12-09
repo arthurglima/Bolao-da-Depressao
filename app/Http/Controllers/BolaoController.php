@@ -42,11 +42,14 @@ class BolaoController extends Controller
   public function store(Request $request)
   {
     try {
-      $saved = (new Bolao($request->all()))->save();
+      DB::beginTransaction();
+      $saved = (new Bolao($request->all()))->create();
       if ($saved) {
+        DB::commit();
         return redirect('boloes')->with('success', 'Bolão criado com sucesso');
       }
     } catch (\Exception $e) {
+      DB::rollback();
       return redirect('boloes')->with('error', $e->getMessage());
     }
   }
