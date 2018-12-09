@@ -159,7 +159,7 @@ class Bolao extends BolaoModel
     $bolao = array_merge($vars, $vars['attributes']);
     $bolao = Bolao::create($bolao);
     BolaoHasUser::create(['bolao_id' => $bolao->id, 'user_id' => Auth::user()->id, 'esta_aprovado' => 1, 'e_dono' => 1]);
-    return parent::save($options);
+    return true;
   }
 
 }
