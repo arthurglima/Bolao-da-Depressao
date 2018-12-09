@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\SisBolao\Bolao;
 use App\SisBolao\Campeonato;
 use App\SisBolao\Palpite;
+use App\User;
 use Illuminate\Http\Request;
+use DB;
 
 class BolaoController extends Controller
 {
@@ -149,6 +151,32 @@ class BolaoController extends Controller
     } catch (\Exception $e) {
       return redirect()->back()->with('error', $e->getMessage());
     }
+  }
+
+  /**
+   * Retorna uma lista de pessoas para convidar de acordo com a busca
+   * @param Request $request
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   */
+  public function buscarPessoas(Request $request)
+  {
+    $query = $request->input('query', null);
+    $bolao_id = $request->input('bolao_id');
+
+    if ($query == null || $query == '') {
+      $seached = [];
+    } else {
+      $seached = User::leftJoin('bolao_has_user as bhu', function ($join) use ($bolao_id) {
+        $join->on('bhu.users_id', '=', 'users.id')
+          ->where('bhu.bolao_id', '=', $bolao_id);
+      })
+        ->where(DB::raw('lower(name)'), 'like', '%' . strtolower($query) . '%')
+        ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($query) . '%')
+        ->whereNull('bhu.bolao_id')
+        ->get();
+    }
+    $bolao = (new Bolao())->getById($bolao_id);
+    return view('bolao.manage-invite', compact('bolao', 'seached'));
   }
 
 }

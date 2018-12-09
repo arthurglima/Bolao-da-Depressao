@@ -24,42 +24,51 @@
         @endif
     </ul>
     <div class="content" style="padding: 15px">
-        <form method="POST" action="{{ url('boloes/buscarpessoas', ['id' => $id ?? null])  }}"
+        <form method="POST" action="{{ url("boloes/{$bolao->id}/buscarpessoas")  }}"
               class="form-inline my-2 my-lg-0">
             @csrf @method('POST')
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar por nome ou email"
+            <input type="hidden" name="bolao_id" value="{{$bolao->id}}">
+            <input class="form-control mr-sm-2"
+                   type="search" placeholder="Buscar por nome ou email"
+                   name="query"
                    aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
 
-        @if(!isset($seached) || count($seached) !== 0)
-            <table class="table table-responsive-md table-striped">
-                <thead>
+        <table class="table table-responsive-md table-striped">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($seached as $item)
                 <tr>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>
-                    </th>
+                    <td>{{$item->name}}</td>
+                    <td>{{$item->email}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success"
+                                data-toggle="modal"
+                                data-target="#convidar{{$item->id}}"
+                                style="color: white">
+                            Convidar
+                        </button>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                @foreach($seached as $item)
-                    <tr>
-                        <td>{{$item->nome}}</td>
-                        <td>{{$item->email}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-success"
-                                    data-toggle="modal"
-                                    data-target="#convidar{{$item->id}}"
-                                    style="color: white">
-                                Convidar
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        @endif
+            @endforeach
+            @if(count($seached) == 0)
+
+                <tr>
+                    <td>Nada encontrado pela busca</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endif
+            </tbody>
+        </table>
     </div>
 @endsection
 
