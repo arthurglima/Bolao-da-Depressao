@@ -114,6 +114,7 @@ class Bolao extends BolaoModel
       ->join('bolao_has_user as bhu', function ($join) {
         $join->on('users.id', '=', 'bhu.users_id');
       })
+      ->where('bhu.esta_aprovado', '=', 1)
       ->orderBy('placar', 'DESC')
       ->orderBy('gols_vencedor', 'DESC')
       ->orderBy('gols_perdedor', 'DESC')
@@ -194,6 +195,22 @@ class Bolao extends BolaoModel
           ORDER BY data_jogo DESC, hora_jogo DESC
     "));
 
+  }
+
+  /**
+   * Retorna pessoas para confirmação de participação no bolão
+   */
+  public function getModeracao()
+  {
+    return $this->select(
+      'u.email',
+      'u.name as nome',
+      'bhu.esta_aprovado'
+    )
+      ->join('bolao_has_user as bhu', 'bhu.bolao_id', '=', 'bolao.id')
+      ->join('users as u', 'u.id', '=', 'bhu.users_id')
+      ->where('esta_aprovado', '=', 0)
+      ->get();
   }
 
   /**

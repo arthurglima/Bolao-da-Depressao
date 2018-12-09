@@ -13,9 +13,11 @@
             <a class="nav-link" href="palpites">Meus palpites</a>
         </li>
         @if($bolao->is_owner)
-            <li class="nav-item">
-                <a class="nav-link active" href="moderacao">Moderação</a>
-            </li>
+            @if($bolao->is_moderado)
+                <li class="nav-item">
+                    <a class="nav-link active" href="moderacao">Moderação</a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="convidar">Convidar Amigos</a>
             </li>
@@ -26,24 +28,33 @@
             <thead>
             <tr>
                 <th>Nome</th>
-                <th>Campeonato</th>
-                <th>É Moderado?</th>
-                <th>Data Inicio do Bolão</th>
-                <th>Data de criação</th>
-                <th>Valor Premiação</th>
-                <th></th>
+                <th>E-mail</th>
+                <th>
+                </th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @foreach($moderacao as $item)
+                <tr>
+                    <td>{{$item->nome}}</td>
+                    <td>{{$item->email}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success" style="color: white">
+                            Confimar
+                        </button>
+                        <button class="btn btn-sm btn-danger" style="color: white">
+                            Recusar
+                        </button>
+                    </td>
+                </tr>
+            @endforeach
+            @if(count($moderacao) == 0)
+                <tr>
+                    <td> Sem convidados para confirmar</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endif
             </tbody>
         </table>
 

@@ -13,9 +13,11 @@
             <a class="nav-link active" href="palpites">Meus palpites</a>
         </li>
         @if($bolao->is_owner)
-            <li class="nav-item">
-                <a class="nav-link " href="moderacao">Moderação</a>
-            </li>
+            @if($bolao->is_moderado)
+                <li class="nav-item">
+                    <a class="nav-link " href="moderacao">Moderação</a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="convidar">Convidar Amigos</a>
             </li>

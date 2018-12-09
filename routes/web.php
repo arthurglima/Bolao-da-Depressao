@@ -20,7 +20,7 @@ Auth::routes();
 
 
 Route::get('/boloes/{bolao_id}/convidar', 'BolaoController@getInvites');
-Route::get('/boloes/{bolao_id}/moderacao', 'BolaoController@getModeracao');
+Route::get('/boloes/{bolao_id}/moderacao', 'BolaoController@getModeracao')->middleware('user.bolao.owner');
 Route::get('/boloes/{bolao_id}/palpites', 'BolaoController@getPalpites');
 Route::get('/boloes/{bolao_id}/classificacao', 'BolaoController@getClassificacao');
 Route::post('/boloes/palpites', 'BolaoController@salvarPalpites');

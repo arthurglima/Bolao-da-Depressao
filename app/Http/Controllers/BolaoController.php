@@ -93,7 +93,8 @@ class BolaoController extends Controller
   public function getModeracao($bolao_id)
   {
     $bolao = (new Bolao())->getById($bolao_id);
-    return view('bolao.manage-moderacao', compact('bolao'));
+    $moderacao = $bolao->getModeracao();
+    return view('bolao.manage-moderacao', compact('bolao', 'moderacao'));
   }
 
 

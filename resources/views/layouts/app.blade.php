@@ -88,7 +88,7 @@
 
         <a class="btn" href="{{ route('logout') }}"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fa fa-lock"></i> Logout</a>
+            <i class="fa fa-lock"></i> Sair</a>
     </header>
     <div class="app-body" style="position: absolute;">
         <div class="sidebar">
