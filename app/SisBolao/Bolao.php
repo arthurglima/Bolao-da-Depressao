@@ -203,6 +203,7 @@ class Bolao extends BolaoModel
   public function getModeracao()
   {
     return $this->select(
+      'u.id',
       'u.email',
       'u.name as nome',
       'bhu.esta_aprovado'
