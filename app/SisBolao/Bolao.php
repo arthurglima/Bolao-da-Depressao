@@ -162,7 +162,7 @@ class Bolao extends BolaoModel
     $vars = get_object_vars($this);
     $b = (new BolaoModel())->fill(array_merge($vars, $vars['attributes']))->toArray();
     $bolao = BolaoModel::create($b);
-    BolaoHasUser::create(['bolao_id' => $bolao->id, 'user_id' => Auth::user()->id, 'esta_aprovado' => 1, 'e_dono' => 1]);
+    BolaoHasUser::create(['bolao_id' => $bolao->id, 'users_id' => Auth::user()->id, 'esta_aprovado' => 1, 'e_dono' => 1]);
     return true;
   }
 
