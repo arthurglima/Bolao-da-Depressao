@@ -70,7 +70,8 @@ class Bolao extends Model
     )
       ->setBindings(array_merge($placar->getBindings(), $golsvencedor->getBindings(), $golsperdedor->getBindings()))
       ->join('bolao_has_user as bhu', function ($join) {
-        $join->on('users.id', '=', 'bhu.users_id');
+        $join->on('users.id', '=', 'bhu.users_id')
+          ->where('bhu.bolao_id', '=', $this->id);
       })
       ->where('bhu.esta_aprovado', '=', 1)
       ->orderBy('placar', 'DESC')
