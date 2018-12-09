@@ -14,10 +14,8 @@ class CreateJogoStatusTable extends Migration
   public function up()
   {
     Schema::create('jogo_status', function (Blueprint $table) {
-      $table->integer('id');
+      $table->increments('id');
       $table->string('nome');
-      $table->primary(['id']);
-      $table->index(['id']);
       $table->timestamps();
     });
   }

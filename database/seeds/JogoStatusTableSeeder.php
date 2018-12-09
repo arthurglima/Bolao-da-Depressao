@@ -13,11 +13,11 @@ class JogoStatusTableSeeder extends Seeder
   {
     DB::table('jogo_status')->insert([
 
-      ['id' => 0, 'nome' => 'Em andamento'],
-      ['id' => 1, 'nome' => 'Mandante ganhou'],
-      ['id' => 2, 'nome' => 'Visitante ganhou'],
-      ['id' => 3, 'nome' => 'Empate'],
-      ['id' => 4, 'nome' => 'Aguardando dia/hora']
+      ['nome' => 'Em andamento'],
+      ['nome' => 'Mandante ganhou'],
+      ['nome' => 'Visitante ganhou'],
+      ['nome' => 'Empate'],
+      ['nome' => 'Aguardando dia/hora']
 
     ]);
   }
