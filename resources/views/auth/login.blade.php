@@ -2,11 +2,11 @@
 
 @section('content')
 
-    <div class="container" style="margin-top: 90px">
+    <div class="container" style="margin: 90px auto;margin-left: -65px;">
         <div class="row justify-content-center">
-            <div class="col-md-8" style="    margin-left: -150px;">
+            <div class="col-md-8" style="    margin-left: 0;">
                 <div class="card-group">
-                    <div class="card p-4">
+                    <div class="card p-3">
                         <form class="card-body" method="POST" action="{{ route('login') }}">
                             @csrf
                             <h1>{{ __('Login') }}</h1>
@@ -51,15 +51,15 @@
                                 </div>
                                 <div class="col-6 text-right">
                                     {{--@if (Route::has('password.request'))--}}
-                                        {{--<a class="btn btn-link" href="{{ route('password.request') }}">--}}
-                                            {{--{{ __('Esqueceu a senha?') }}--}}
-                                        {{--</a>--}}
+                                    {{--<a class="btn btn-link" href="{{ route('password.request') }}">--}}
+                                    {{--{{ __('Esqueceu a senha?') }}--}}
+                                    {{--</a>--}}
                                     {{--@endif--}}
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+                    <div class="card text-white bg-primary py-3" style="width:44%">
                         <div class="card-body text-center">
                             <div>
                                 <h2>Registre-se</h2>
