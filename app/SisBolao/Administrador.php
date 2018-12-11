@@ -8,6 +8,7 @@ use App\User;
 class Administrador extends User
 {
   const ADMINISTRADOR = 1;
+
   protected $table = 'users';
   private static $instance = null;
 
