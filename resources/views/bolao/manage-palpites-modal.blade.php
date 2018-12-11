@@ -22,7 +22,7 @@
                             <div class="card col col-6">
                                 @if(is_null($possible->palpite_mandante) || is_null($possible->palpite_visitante == null))
                                     <div class="modal-header">
-                                        <smal class="modal-title" id="bolaoLabel">Pendente</smal>
+                                        <small class="modal-title" id="bolaoLabel">Pendente</small>
                                     </div>
                                 @endif
                                 <div class="card-body">
