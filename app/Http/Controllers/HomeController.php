@@ -6,6 +6,7 @@ use App\SisBolao\Bolao;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -30,18 +31,23 @@ class HomeController extends Controller
     $query = $request->input('query', null);
     $busca = false;
 
-    $boloes = Bolao::select('bolao.*', 'c.nome as campeonato_nome')
+    $boloes = Bolao::select('bolao.*', 'c.nome as campeonato_nome', 'bhu.e_dono', 'bhu.esta_aprovado')
       ->join('campeonato as c', 'c.id', '=', 'bolao.campeonato_id')
+      ->leftJoin('bolao_has_user as bhu', function ($j) {
+        $j->on('bhu.bolao_id', '=', 'bolao.id')
+          ->where('bhu.users_id', '=', Auth::user()->id);
+      })
       ->where('can_buscar', '=', 1);
 
     if ($query == null) {
-      $boloes = $boloes->where('data_inicio', '>', Carbon::now()->format('Y-m-d'));
-      $boloes = $boloes->limit(5)->get();
+      $boloes = $boloes->where('data_inicio', '>=', Carbon::now()->format('Y-m-d'));
+      $boloes = $boloes->limit(5);
     } else {
       $busca = true;
       $boloes = $boloes->where(DB::raw('lower(bolao.nome)'), 'like', '%' . strtolower($query) . '%');
-      $boloes = $boloes->get();
     }
+
+    $boloes = $boloes->get();
 
     return view('home', compact('boloes', 'busca', 'query'));
   }

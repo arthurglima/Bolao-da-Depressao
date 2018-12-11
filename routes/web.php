@@ -23,6 +23,7 @@ Route::get('/boloes/{bolao_id}/moderacao', 'BolaoController@getModeracao')->midd
 Route::post('/boloes/decisaomoderacao', 'BolaoController@decisaoDeModeracao')->middleware('user.bolao.owner');
 Route::post('/boloes/{bolao_id}/buscarpessoas', 'BolaoController@buscarPessoas')->middleware('user.bolao.owner');
 Route::get('/boloes/{bolao_id}/palpites', 'BolaoController@getPalpites');
+Route::post('/boloes/{bolao_id}/participar', 'BolaoController@enterInBolao');
 Route::get('/boloes/{bolao_id}/classificacao', 'BolaoController@getClassificacao');
 Route::post('/boloes/palpites', 'BolaoController@salvarPalpites');
 Route::resource('/boloes', 'BolaoController');

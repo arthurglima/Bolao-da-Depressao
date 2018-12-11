@@ -37,19 +37,18 @@ class Bolao extends BolaoModel
   /**
    * Retorna o bolão pelo ID;
    * @param int $id - Identificador do Time
+   * @param bool $general
    * @return Campeonato
    */
-  public function getById(int $id)
+  public function getById(int $id, $general = false)
   {
-    $bolao = $this->select(
-      'bolao.*',
-      'c.nome as campeonato_nome',
-      'bhu.e_dono as is_owner'
-    )
+    $bolao = $this->select('bolao.*', 'c.nome as campeonato_nome', 'bhu.e_dono as is_owner')
       ->join('campeonato as c', 'c.id', '=', 'bolao.campeonato_id')
-      ->join('bolao_has_user as bhu', function ($j) {
-        $j->on('bhu.bolao_id', '=', 'bolao.id')
-          ->where('bhu.users_id', '=', Auth::user()->id);
+      ->leftJoin('bolao_has_user as bhu', function ($j) use ($general) {
+        $j->on('bhu.bolao_id', '=', 'bolao.id');
+        if (!$general) {
+          $j->where('bhu.users_id', '=', Auth::user()->id);
+        }
       })
       ->where('bolao.id', '=', $id)
       ->first();
@@ -163,6 +162,23 @@ class Bolao extends BolaoModel
     $b = (new BolaoModel())->fill(array_merge($vars, $vars['attributes']))->toArray();
     $bolao = BolaoModel::create($b);
     BolaoHasUser::create(['bolao_id' => $bolao->id, 'users_id' => Auth::user()->id, 'esta_aprovado' => 1, 'e_dono' => 1]);
+    return true;
+  }
+
+  /**
+   * Entra em um bolão
+   * @param $user_id - Identificador do usuário que pediu entrada
+   * @return bool
+   */
+  public function entrarNoBolao($user_id)
+  {
+    BolaoHasUser::updateOrCreate(
+      [
+        'bolao_id' => $this->id,
+        'users_id' => $user_id,
+        'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
+        'e_dono' => 0
+      ]);
     return true;
   }
 

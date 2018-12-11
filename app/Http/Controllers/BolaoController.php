@@ -8,6 +8,7 @@ use App\SisBolao\Palpite;
 use App\User;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class BolaoController extends Controller
 {
@@ -180,6 +181,27 @@ class BolaoController extends Controller
     }
     $bolao = (new Bolao())->getById($bolao_id);
     return view('bolao.manage-invite', compact('bolao', 'seached'));
+  }
+
+  /**
+   * Pedir entrada no bolão
+   * @param $bolao_id - Identificador do bolão
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function enterInBolao($bolao_id)
+  {
+    try {
+      $bolao = (new Bolao())->getById($bolao_id, true);
+      $bolao->entrarNoBolao(Auth::user()->id);
+      if ($bolao->is_moderado) {
+        return redirect('home')->with('success', 'Pedido de entrada feito ao criador do bolão');
+      } else {
+        return redirect('home')->with('success', 'Entrada em bolão realizada com sucesso');
+      }
+    } catch (\Exception $e) {
+      return redirect('home')->with('error', $e->getMessage());
+    }
+
   }
 
 }
