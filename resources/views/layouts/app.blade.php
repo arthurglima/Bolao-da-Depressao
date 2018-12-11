@@ -108,6 +108,7 @@
             </nav>
         </div>
     </div>
+    @include('layouts.modal-notificacoes')
 @endguest
 @include('layouts.scripts')
 <main class="main" style="margin-top: 55px">
@@ -137,6 +138,5 @@
     @endif
     @yield('content')
 </main>
-@include('layouts.modal-notificacoes')
 </body>
 </html>
