@@ -109,6 +109,7 @@ class Bolao extends BolaoModel
     )
       ->join('bolao_has_user as bhu', 'bhu.bolao_id', '=', 'bolao.id')
       ->join('users as u', 'u.id', '=', 'bhu.users_id')
+      ->where('bhu.bolao_id', '=', $this->id)
       ->where('esta_aprovado', '=', 0)
       ->get();
   }

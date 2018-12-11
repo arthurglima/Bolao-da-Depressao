@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\SisBolao\Bolao;
 use App\SisBolao\Campeonato;
 use App\SisBolao\Palpite;
-use App\User;
+use App\SisBolao\SisBolaoFacade;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +44,7 @@ class BolaoController extends Controller
   {
     try {
       DB::beginTransaction();
-      $saved = (new Bolao($request->all()))->criar();
+      $saved = SisBolaoFacade::criarBolao($request->all());
       if ($saved !== null) {
         DB::commit();
         return redirect('boloes')->with('success', 'Bolão criado com sucesso');
@@ -170,15 +170,7 @@ class BolaoController extends Controller
     if ($query == null || $query == '') {
       $seached = [];
     } else {
-      $seached = User::select('users.*', 'bhu.bolao_id as bolao_id')
-        ->leftJoin('bolao_has_user as bhu', function ($join) use ($bolao_id) {
-          $join->on('bhu.users_id', '=', 'users.id')
-            ->where('bhu.bolao_id', '=', $bolao_id);
-        })
-        ->where(DB::raw('lower(name)'), 'like', '%' . strtolower($query) . '%')
-        ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($query) . '%')
-        ->whereNull('bhu.bolao_id')
-        ->get();
+      $seached = SisBolaoFacade::buscarParticipantes($query, $bolao_id);
     }
     $bolao = (new Bolao())->getById($bolao_id);
     return view('bolao.manage-invite', compact('bolao', 'seached'));
