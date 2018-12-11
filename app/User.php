@@ -41,7 +41,8 @@ class User extends AbstractObserver
    */
   public function updateSub(AbstractSubject $subject)
   {
-    $notificacao = 'Jogo ' . $subject->mandante->alias . ' X ' . $subject->visitante->alias . ' teve uma atualização';
+    $notificacao =
+      'Jogo ' . $subject->mandante->alias . ' X ' . $subject->visitante->alias . ' - Placar: ' . $subject->resultado_mandante . ' X ' . $subject->resultado_visitante;
     Notification::create(['users_id' => $this->id, 'notificacao' => $notificacao]);
   }
 
