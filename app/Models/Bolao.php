@@ -107,7 +107,9 @@ class Bolao extends Model
             visitante.escudo AS visitante_escudo,
             f.nome as rodada
           FROM jogo AS j
-            LEFT JOIN palpite AS p ON p.jogo_id = j.id AND p.bolao_has_user_users_id = " . Auth::user()->id . "
+            LEFT JOIN palpite AS p 
+                ON p.jogo_id = j.id AND p.bolao_has_user_users_id = " . Auth::user()->id . " 
+                                    AND p.bolao_has_user_bolao_id = {$this->id}
             INNER JOIN time AS mandante ON mandante.id = j.time_id_mandante
             INNER JOIN time AS visitante ON visitante.id = j.time_id_visitante
             INNER JOIN jogo_status AS js ON js.id = j.jogo_status_id
