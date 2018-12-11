@@ -77,7 +77,7 @@ class Bolao extends BolaoModel
       'visitante.escudo as visitante_escudo'
     )
       ->join('palpite as p', function ($join) {
-        $join->where('p.bolao_has_user_bolao_id', '=', $this->id)
+        $join->on('p.bolao_has_user_bolao_id', '=', 'bolao.id')
           ->where('p.bolao_has_user_users_id', '=', Auth::user()->id);
       })
       ->join('jogo as j', 'j.id', '=', 'p.jogo_id')
@@ -88,6 +88,7 @@ class Bolao extends BolaoModel
         $join->on('f.campeonato_id', '=', 'j.fase_campeonato_id')
           ->whereRaw('curdate() BETWEEN f.data_inicial AND f.data_final');
       })
+      ->where('p.bolao_has_user_bolao_id', '=', $this->id)
       ->orderBy('data_jogo', 'desc')
       ->orderBy('hora_jogo', 'desc')
       ->get();
