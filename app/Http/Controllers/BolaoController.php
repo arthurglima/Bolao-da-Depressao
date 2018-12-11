@@ -44,8 +44,8 @@ class BolaoController extends Controller
   {
     try {
       DB::beginTransaction();
-      $saved = (new Bolao($request->all()))->create();
-      if ($saved) {
+      $saved = (new Bolao($request->all()))->criar();
+      if ($saved !== null) {
         DB::commit();
         return redirect('boloes')->with('success', 'Bolão criado com sucesso');
       }
@@ -63,7 +63,7 @@ class BolaoController extends Controller
    */
   public function show($bolao_id)
   {
-    $bolao = (new Bolao())->getById($bolao_id);
+//    $bolao = (new Bolao())->getById($bolao_id);
   }
 
   /**

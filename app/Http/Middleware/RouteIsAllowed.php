@@ -16,7 +16,7 @@ class RouteIsAllowed
    */
   public function handle($request, Closure $next)
   {
-    if ($request->user()->getType() == Administrador::ADMINISTRADOR) {
+    if ($request->user()->getType() == Administrador::getInstance()->getType()) {
       return $next($request);
     } else {
       abort(404);

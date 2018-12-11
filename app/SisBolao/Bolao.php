@@ -120,8 +120,7 @@ class Bolao extends BolaoModel
    */
   public function decidirModeracao($decisao, $user_id)
   {
-    $confirmacao = BolaoHasUser::where('bolao_id', '=', $this->id)
-      ->where('users_id', '=', $user_id);
+    $confirmacao = BolaoHasUser::where('bolao_id', '=', $this->id)->where('users_id', '=', $user_id);
 
     if ($decisao) {
       $confirmacao->update(['esta_aprovado' => $decisao]);
@@ -155,15 +154,15 @@ class Bolao extends BolaoModel
 
   /**
    * Cria um novo bolão
-   * @return bool
+   * @return Bolao
    */
-  public function create()
+  public function criar(): Bolao
   {
     $vars = get_object_vars($this);
     $b = (new BolaoModel())->fill(array_merge($vars, $vars['attributes']))->toArray();
     $bolao = BolaoModel::create($b);
     BolaoHasUser::create(['bolao_id' => $bolao->id, 'users_id' => Auth::user()->id, 'esta_aprovado' => 1, 'e_dono' => 1]);
-    return true;
+    return $bolao;
   }
 
   /**
@@ -171,7 +170,7 @@ class Bolao extends BolaoModel
    * @param $user_id - Identificador do usuário que pediu entrada
    * @return bool
    */
-  public function entrarNoBolao($user_id)
+  public function entrarNoBolao($user_id): bool
   {
     BolaoHasUser::updateOrCreate(
       [

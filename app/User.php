@@ -2,12 +2,10 @@
 
 namespace App;
 
-use App\SisBolao\IObserver;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends IObserver
+class User extends Authenticatable
 {
   use Notifiable;
 
@@ -28,11 +26,6 @@ class User extends IObserver
   protected $hidden = [
     'password', 'remember_token',
   ];
-
-  public function updateSubjects()
-  {
-    // TODO: Implement updateSubjects() method.
-  }
 
   public function getType()
   {

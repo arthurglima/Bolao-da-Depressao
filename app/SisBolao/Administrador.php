@@ -9,24 +9,27 @@ class Administrador extends User
 {
   const ADMINISTRADOR = 1;
   protected $table = 'users';
+  private static $instance = null;
 
+  /**
+   * Administrador constructor.
+   * @param array $attributes
+   * @throws \Exception
+   */
   public function __construct(array $attributes = [])
   {
-    $admin = Administrador::where('type', '=', self::ADMINISTRADOR)->first();
-    parent::__construct($admin->toArray());
+    parent::__construct($attributes);
   }
 
   /**
    * Retorna a instancia singleton do Administrador
    * @return mixed
    */
-  public static function getInstance(): Administrador
+  public static function getInstance()
   {
-    return new Administrador();
-  }
-
-  public function updateSubjects()
-  {
-    // TODO: Implement updateSubjects() method.
+    if (self::$instance == null) {
+      self::$instance = Administrador::select('*')->where('type', '=', self::ADMINISTRADOR)->first();
+    }
+    return self::$instance;
   }
 }
