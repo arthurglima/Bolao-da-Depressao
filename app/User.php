@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Models\Notification;
+use App\SisBolao\Observer\AbstractObserver;
+use App\SisBolao\Observer\AbstractSubject;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+
+class User extends AbstractObserver
 {
   use Notifiable;
 
@@ -30,5 +33,25 @@ class User extends Authenticatable
   public function getType()
   {
     return $this->type;
+  }
+
+  /**
+   * Update do Observer
+   * @param AbstractSubject $subject
+   */
+  public function updateSub(AbstractSubject $subject)
+  {
+    $notificacao = 'Jogo ' . $subject->mandante->alias . ' X ' . $subject->visitante->alias . ' teve uma atualização';
+    Notification::create(['users_id' => $this->id, 'notificacao' => $notificacao]);
+  }
+
+  /**
+   * Retorna usuário pelo identificador
+   * @param $id
+   * @return mixed
+   */
+  public function getById($id)
+  {
+    return $this->where('id', '=', $id)->first();
   }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\SisBolao\Bolao;
+use App\SisBolao\Jogo;
+use App\SisBolao\Observer\PObserver;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;

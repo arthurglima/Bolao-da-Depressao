@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SisBolao\Jogo;
+use App\User;
 use Illuminate\Http\Request;
 
 class JogoController extends Controller
@@ -40,8 +41,10 @@ class JogoController extends Controller
   {
     try {
       $jogo = (new Jogo($request->all()))->getById($id);
+      $jogo->registraTodosObservadores();
 
       if ($jogo->update($request->all())) {
+        $jogo->removeTodosObservadores();
         return redirect()->back()->with('success', 'Placar do jogo atualizado');
       }
 
