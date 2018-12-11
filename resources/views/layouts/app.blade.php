@@ -71,14 +71,14 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item btn" href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fa fa-lock"></i> Logout</a>
+                        <i class="fa fa-lock"></i> Sair</a>
                 </div>
             </li>
         </ul>
 
-        <a class="btn" href="{{ route('logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fa fa-lock"></i> Sair</a>
+        {{--<a class="btn" href="{{ route('logout') }}"--}}
+           {{--onclick="event.preventDefault(); document.getElementById('logout-form').submit();">--}}
+            {{--<i class="fa fa-lock"></i> Sair</a>--}}
     </header>
     <div class="app-body" style="position: absolute;">
         <div class="sidebar">
