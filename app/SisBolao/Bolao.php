@@ -122,10 +122,7 @@ class Bolao extends BolaoModel
   public function decidirModeracao($decisao, $user_id)
   {
     $confirmacao = BolaoHasUser::where('bolao_id', '=', $this->id)->where('users_id', '=', $user_id);
-
-    if ($decisao) {
-      $confirmacao->update(['esta_aprovado' => $decisao]);
-    }
+    $confirmacao->update(['esta_aprovado' => $decisao]);
   }
 
   /**
