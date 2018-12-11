@@ -77,7 +77,7 @@ class Bolao extends BolaoModel
       'visitante.escudo as visitante_escudo'
     )
       ->join('palpite as p', function ($join) {
-        $join->on('p.bolao_has_user_bolao_id', '=', 'bolao.id')
+        $join->where('p.bolao_has_user_bolao_id', '=', $this->id)
           ->where('p.bolao_has_user_users_id', '=', Auth::user()->id);
       })
       ->join('jogo as j', 'j.id', '=', 'p.jogo_id')
