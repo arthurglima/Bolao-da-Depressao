@@ -55,4 +55,12 @@ class User extends AbstractObserver
   {
     return $this->where('id', '=', $id)->first();
   }
+
+  /**
+   * Retorna todas as notificacoes do usuário
+   */
+  public function getNotificacoes()
+  {
+    return Notification::where('users_id', '=', $this->id)->get();
+  }
 }

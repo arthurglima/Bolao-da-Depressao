@@ -61,22 +61,12 @@
                     <div class="dropdown-header text-center">
                         <strong>Conta</strong>
                     </div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-bell-o"></i> Updates
-                        <span class="badge badge-info">42</span>
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-envelope-o"></i> Messages
-                        <span class="badge badge-success">42</span>
-                    </a>
-                    <div class="dropdown-header text-center">
-                        <strong>Configurações</strong>
-                    </div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-user"></i> Profile</a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-file"></i> Projects
-                        <span class="badge badge-primary">42</span>
+                    <a class="dropdown-item" href="#" data-toggle="modal"
+                       data-target="#notificacoes{{\Illuminate\Support\Facades\Auth::user()->id}}">
+                        <i class="fa fa-envelope-o"></i> Notificações
+                        <span class="badge badge-success">
+                            {{\Illuminate\Support\Facades\Auth::user()->getNotificacoes()->count()}}
+                        </span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item btn" href="{{ route('logout') }}"
@@ -147,6 +137,6 @@
     @endif
     @yield('content')
 </main>
-
+@include('layouts.modal-notificacoes')
 </body>
 </html>
