@@ -33,7 +33,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
+        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Bolão da Depressão</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -56,15 +56,14 @@
             <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="img/intro.jpg" alt="">
             <div class="intro-text left-0 text-center bg-faded p-5 rounded">
                 <h2 class="section-heading mb-4">
-                    <span class="section-heading-upper">Fresh Coffee</span>
-                    <span class="section-heading-lower">Worth Drinking</span>
+                    <span class="section-heading-upper">Melhorias constantes</span>
+                    <span class="section-heading-lower">Trabalho Duro</span>
                 </h2>
-                <p class="mb-3">Every cup of our quality artisan coffee starts with locally sourced, hand picked
-                    ingredients. Once you try it, our coffee will be a blissful addition to your everyday morning
-                    routine - we guarantee it!
+                <p class="mb-3">Temos muitas outras vantagens e estamos sempre criando novas melhorias. Crie seu bolão
+                    grátis e comprove!
                 </p>
                 <div class="intro-button mx-auto">
-                    <a class="btn btn-primary btn-xl" href="#">Visit Us Today!</a>
+                    <a class="btn btn-primary btn-xl" href="login">Registre-se aqui</a>
                 </div>
             </div>
         </div>
@@ -77,13 +76,12 @@
             <div class="col-xl-9 mx-auto">
                 <div class="cta-inner text-center rounded">
                     <h2 class="section-heading mb-4">
-                        <span class="section-heading-upper">Our Promise</span>
-                        <span class="section-heading-lower">To You</span>
+                        <span class="section-heading-upper">Nossa promessa</span>
+                        <span class="section-heading-lower">Para você</span>
                     </h2>
-                    <p class="mb-0">When you walk into our shop to start your day, we are dedicated to providing you
-                        with friendly service, a welcoming atmosphere, and above all else, excellent products made with
-                        the highest quality ingredients. If you are not satisfied, please let us know and we will do
-                        whatever we can to make things right!</p>
+                    <p class="mb-0">
+                        Manter os principais campeonatos de clubes do Brasil, do mundo e de seleções. Tudo totalmente
+                        grátis para sua diversão.</p>
                 </div>
             </div>
         </div>
@@ -92,7 +90,7 @@
 
 <footer class="footer text-faded text-center py-5">
     <div class="container">
-        <p class="m-0 small">Copyright &copy; Your Website 2018</p>
+        <p class="m-0 small">Copyright &copy; Bolão da Depressão 2018</p>
     </div>
 </footer>
 
