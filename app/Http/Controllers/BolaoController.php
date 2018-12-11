@@ -170,10 +170,11 @@ class BolaoController extends Controller
     if ($query == null || $query == '') {
       $seached = [];
     } else {
-      $seached = User::leftJoin('bolao_has_user as bhu', function ($join) use ($bolao_id) {
-        $join->on('bhu.users_id', '=', 'users.id')
-          ->where('bhu.bolao_id', '=', $bolao_id);
-      })
+      $seached = User::select('users.*', 'bhu.bolao_id as bolao_id')
+        ->leftJoin('bolao_has_user as bhu', function ($join) use ($bolao_id) {
+          $join->on('bhu.users_id', '=', 'users.id')
+            ->where('bhu.bolao_id', '=', $bolao_id);
+        })
         ->where(DB::raw('lower(name)'), 'like', '%' . strtolower($query) . '%')
         ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($query) . '%')
         ->whereNull('bhu.bolao_id')
@@ -202,6 +203,23 @@ class BolaoController extends Controller
       return redirect('home')->with('error', $e->getMessage());
     }
 
+  }
+
+  /**
+   * Convida um usuário para o bolão
+   * @param $bolao_id - Idenfificador do bolão
+   * @param $user_id - Identificador do usuário convidado
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function convidar($bolao_id, $user_id)
+  {
+    try {
+      $bolao = (new Bolao())->getById($bolao_id, true);
+      $bolao->entrarNoBolao($user_id);
+      return redirect()->back()->with('success', 'Usuário convidado para o bolão');
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', $e->getMessage());
+    }
   }
 
 }

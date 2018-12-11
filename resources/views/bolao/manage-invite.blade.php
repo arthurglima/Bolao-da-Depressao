@@ -70,5 +70,11 @@
             </tbody>
         </table>
     </div>
+
+    @foreach($seached as $item)
+        @include('bolao.confirm-invite', ['item' => $item, 'bolao_id' => $bolao->id])
+    @endforeach
+
+
 @endsection
 
