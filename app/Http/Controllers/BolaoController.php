@@ -76,6 +76,8 @@ class BolaoController extends Controller
     $bolao = (new Bolao())->getById($bolao_id);
     if ($bolao !== null) {
       $classificacao = $bolao->getClassificacao();
+    } else {
+      abort(404);
     }
     return view('bolao.manage-classificacao', compact('bolao', 'classificacao'));
   }
@@ -91,6 +93,8 @@ class BolaoController extends Controller
     if ($bolao !== null) {
       $palpites = $bolao->getPalpites();
       $possibles = $bolao->getPossiveisJogosDaRodada();
+    } else {
+      abort(404);
     }
     return view('bolao.manage-palpites', compact('bolao', 'palpites', 'possibles'));
   }
@@ -105,6 +109,8 @@ class BolaoController extends Controller
     $bolao = (new Bolao())->getById($bolao_id);
     if ($bolao !== null) {
       $moderacao = $bolao->getModeracao();
+    } else {
+      abort(404);
     }
     return view('bolao.manage-moderacao', compact('bolao', 'moderacao'));
   }
