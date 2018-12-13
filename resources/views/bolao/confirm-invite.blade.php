@@ -3,7 +3,6 @@
      aria-labelledby="createBolaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            {{url("/boloes/{$bolao_id}/convidar/user/{$item->id}")}}
             <form method="POST" action="{{ url("/boloes/{$bolao_id}/convidar/user/{$item->id}")  }}">
                 @method('POST') @csrf
                 <div class="modal-header">
