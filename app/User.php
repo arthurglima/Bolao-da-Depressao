@@ -61,6 +61,8 @@ class User extends AbstractObserver
    */
   public function getNotificacoes()
   {
-    return Notification::where('users_id', '=', $this->id)->get();
+    return Notification::where('users_id', '=', $this->id)
+      ->orderBy('created_at')
+      ->get();
   }
 }
