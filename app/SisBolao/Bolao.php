@@ -168,9 +168,9 @@ class Bolao extends BolaoModel
   /**
    * Entra em um bolão
    * @param $user_id - Identificador do usuário que pediu entrada
-   * @return bool
+   * @return BolaoHasUser
    */
-  public function entrarNoBolao($user_id): bool
+  public function entrarNoBolao($user_id): BolaoHasUser
   {
     return BolaoHasUser::updateOrCreate(
       [
