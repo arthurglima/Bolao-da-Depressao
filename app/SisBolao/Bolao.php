@@ -52,7 +52,9 @@ class Bolao extends BolaoModel
       })
       ->where('bolao.id', '=', $id)
       ->first();
-    $this->fillFields($bolao->toArray());
+    if ($bolao !== null) {
+      $this->fillFields($bolao->toArray());
+    }
     return $bolao;
   }
 
