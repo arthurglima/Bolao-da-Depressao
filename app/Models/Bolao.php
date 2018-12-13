@@ -88,7 +88,9 @@ class Bolao extends Model
    */
   public function getPossiveisJogosDaRodada(): array
   {
-    return DB::select(DB::raw("
+    $query = [];
+    if (isset($this->id) && isset(Auth::user()->id)) {
+      $query = DB::select(DB::raw("
           SELECT
             p.id,
             p.palpite_mandante,
@@ -108,8 +110,8 @@ class Bolao extends Model
             f.nome as rodada
           FROM jogo AS j
             LEFT JOIN palpite AS p 
-                ON p.jogo_id = j.id and p.bolao_has_user_users_id = " . Auth::user()->id . " 
-                                    and p.bolao_has_user_bolao_id = {$this->id}
+                ON p.jogo_id = j.id AND p.bolao_has_user_users_id = " . Auth::user()->id . " 
+                                    AND p.bolao_has_user_bolao_id = {$this->id}
             INNER JOIN time AS mandante ON mandante.id = j.time_id_mandante
             INNER JOIN time AS visitante ON visitante.id = j.time_id_visitante
             INNER JOIN jogo_status AS js ON js.id = j.jogo_status_id
@@ -119,6 +121,7 @@ class Bolao extends Model
           where (curdate() < j.data_jogo or (curdate() = j.data_jogo and curtime() < j.hora_jogo))
           ORDER BY data_jogo DESC, hora_jogo DESC
     "));
-
+    }
+    return $query;
   }
 }
