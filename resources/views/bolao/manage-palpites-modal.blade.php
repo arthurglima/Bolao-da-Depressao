@@ -10,7 +10,7 @@
                 @method('POST') @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="bolaoLabel">
-                        @if(isset($possibles[0))
+                        @if(isset($possibles[0]))
                             Jogos da {{$possibles[0]->rodada}}
                         @else
                             Jogos
