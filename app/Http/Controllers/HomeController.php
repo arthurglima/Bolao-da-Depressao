@@ -44,12 +44,12 @@ class HomeController extends Controller
 
     if ($query == null) {
       $boloes = $boloes->where('data_inicio', '>=', Carbon::now()->format('Y-m-d'));
-      $boloes = $boloes->limit(5);
     } else {
       $busca = true;
       $boloes = $boloes->where(DB::raw('lower(bolao.nome)'), 'like', '%' . strtolower($query) . '%');
     }
 
+    $boloes = $boloes->limit(5);
     $boloes = $boloes->get();
 
     return view('home', compact('boloes', 'busca', 'query'));
