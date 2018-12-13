@@ -55,7 +55,7 @@ class Bolao extends BolaoModel
     if ($bolao !== null) {
       $this->fillFields($bolao->toArray());
     }
-    return $this;
+    return $bolao;
   }
 
   /**
