@@ -93,6 +93,8 @@ class BolaoController extends Controller
     if ($bolao !== null) {
       $palpites = $bolao->getPalpites();
       $possibles = $bolao->getPossiveisJogosDaRodada();
+      print_r($possibles);
+      die;
     } else {
       abort(404);
     }
