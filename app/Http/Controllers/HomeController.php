@@ -37,8 +37,8 @@ class HomeController extends Controller
     $boloes = Bolao::select('bolao.*', 'c.nome as campeonato_nome', 'bhu.e_dono', 'bhu.esta_aprovado')
       ->join('campeonato as c', 'c.id', '=', 'bolao.campeonato_id')
       ->leftJoin('bolao_has_user as bhu', function ($j) {
-        $j->on('bhu.bolao_id', '=', 'bolao.id')
-          ->where('bhu.users_id', '=', Auth::user()->id);
+        $j->on('bhu.bolao_id', '=', 'bolao.id');
+//          ->where('bhu.users_id', '=', Auth::user()->id);
       })
       ->where('can_buscar', '=', 1);
 
