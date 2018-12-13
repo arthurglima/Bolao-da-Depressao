@@ -9,7 +9,13 @@
                   enctype="multipart/form-data">
                 @method('POST') @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="bolaoLabel">Jogos da {{$possibles[0]->rodada}}</h5>
+                    <h5 class="modal-title" id="bolaoLabel">
+                        @if(isset($possibles[0))
+                            Jogos da {{$possibles[0]->rodada}}
+                        @else
+                            Jogos
+                        @endif
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

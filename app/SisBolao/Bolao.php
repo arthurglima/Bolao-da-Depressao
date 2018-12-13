@@ -170,14 +170,13 @@ class Bolao extends BolaoModel
    */
   public function entrarNoBolao($user_id): bool
   {
-    BolaoHasUser::updateOrCreate(
+    return BolaoHasUser::updateOrCreate(
       [
         'bolao_id' => $this->id,
         'users_id' => $user_id,
         'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
         'e_dono' => 0
       ]);
-    return true;
   }
 
 }

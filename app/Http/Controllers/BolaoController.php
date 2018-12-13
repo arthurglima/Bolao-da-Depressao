@@ -207,10 +207,10 @@ class BolaoController extends Controller
   {
     try {
       $bolao = (new Bolao())->getById($bolao_id, true);
-      $bolao->entrarNoBolao($user_id);
-      return redirect()->back()->with('success', 'Usuário convidado para o bolão');
+      $foi = $bolao->entrarNoBolao($user_id);
+      return redirect("boloes/{$bolao_id}/convidar")->with('success', 'Usuário convidado para o bolão');
     } catch (\Exception $e) {
-      return redirect()->back()->with('error', $e->getMessage());
+      return redirect("boloes/{$bolao_id}/convidar")->with('error', $e->getMessage());
     }
   }
 

@@ -66,8 +66,10 @@ class SisBolaoFacade
         $join->on('bhu.users_id', '=', 'users.id')
           ->where('bhu.bolao_id', '=', $bolao_id);
       })
-      ->where(DB::raw('lower(name)'), 'like', '%' . strtolower($query) . '%')
-      ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($query) . '%')
+      ->where(function ($w) use ($query) {
+        $w->where(DB::raw('lower(name)'), 'like', '%' . strtolower($query) . '%')
+          ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($query) . '%');
+      })
       ->whereNull('bhu.bolao_id')
       ->get();
   }
