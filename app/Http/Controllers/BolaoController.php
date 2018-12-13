@@ -73,9 +73,13 @@ class BolaoController extends Controller
    */
   public function getClassificacao($bolao_id)
   {
-    $bolao = (new Bolao())->getById($bolao_id);
-    $classificacao = $bolao->getClassificacao();
-    return view('bolao.manage-classificacao', compact('bolao', 'classificacao'));
+    try {
+
+      $bolao = (new Bolao())->getById($bolao_id);
+      $classificacao = $bolao->getClassificacao();
+      return view('bolao.manage-classificacao', compact('bolao', 'classificacao'));
+    } catch (\Exception $e) {
+    }
   }
 
   /**

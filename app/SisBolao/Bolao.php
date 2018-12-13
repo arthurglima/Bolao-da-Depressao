@@ -38,7 +38,7 @@ class Bolao extends BolaoModel
    * Retorna o bolão pelo ID;
    * @param int $id - Identificador do Time
    * @param bool $general
-   * @return Campeonato
+   * @return Bolao
    */
   public function getById(int $id, $general = false)
   {
@@ -55,7 +55,7 @@ class Bolao extends BolaoModel
     if ($bolao !== null) {
       $this->fillFields($bolao->toArray());
     }
-    return $bolao;
+    return $this;
   }
 
   /**
