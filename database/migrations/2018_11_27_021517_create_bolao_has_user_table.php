@@ -20,6 +20,7 @@ class CreateBolaoHasUserTable extends Migration
       $table->foreign('users_id')->references('id')->on('users');
       $table->smallInteger('esta_aprovado')->default(1);
       $table->smallInteger('e_dono')->default(0);
+      $table->boolean('is_inactive')->default(0);
       $table->primary(['bolao_id', 'users_id']);
       $table->timestamps();
     });
