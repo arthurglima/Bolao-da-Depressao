@@ -88,7 +88,9 @@ class Bolao extends Model
    */
   public function getPossiveisJogosDaRodada(): array
   {
-    return DB::select(DB::raw("
+    $query = [];
+    if (isset($this->id) && isset(Auth::user()->id)) {
+      $query = DB::select(DB::raw("
           SELECT
             p.id,
             p.palpite_mandante,
@@ -119,6 +121,7 @@ class Bolao extends Model
           where (curdate() < j.data_jogo or (curdate() = j.data_jogo and curtime() < j.hora_jogo))
           ORDER BY data_jogo DESC, hora_jogo DESC
     "));
-
+    }
+    return $query;
   }
 }
