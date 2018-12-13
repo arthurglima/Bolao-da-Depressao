@@ -86,7 +86,7 @@ class Bolao extends Model
   /**
    * Retorna todos os possiveis jogo para a rodada corrente
    */
-  public function getPossiveisJogosDaRodada()
+  public function getPossiveisJogosDaRodada(): array
   {
     return DB::select(DB::raw("
           SELECT

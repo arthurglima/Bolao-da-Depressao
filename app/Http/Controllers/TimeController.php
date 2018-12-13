@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SisBolao\SisBolaoFacade;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\SisBolao\Time;
@@ -40,10 +41,9 @@ class TimeController extends Controller
   public function store(Request $request)
   {
     $file = $request->file('escudo', null);
-    $time = (new Time())->fill($request->all());
-    $time->setEscudo($file);
+    $time = SisBolaoFacade::criarTime($request->all(), $file);
 
-    if ($time->save()) {
+    if ($time) {
       return redirect('times')->with('success', 'Time criado com sucesso');
     }
   }

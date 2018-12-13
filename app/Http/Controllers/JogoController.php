@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SisBolao\Jogo;
+use App\SisBolao\SisBolaoFacade;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,8 @@ class JogoController extends Controller
         throw new \Exception('Time mandante e visitante são obrigatórios.');
       }
 
-      $jogo = new Jogo($request->all());
-      if ($jogo->save()) {
+      $created = SisBolaoFacade::criarJogo($request->all());
+      if ($created) {
         return redirect()->back()->with('success', 'Jogo adicionado na rodada');
       }
     } catch (\Exception $e) {

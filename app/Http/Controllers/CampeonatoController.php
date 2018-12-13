@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SisBolao\Campeonato;
+use App\SisBolao\SisBolaoFacade;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
@@ -40,9 +41,8 @@ class CampeonatoController extends Controller
   {
     try {
       DB::beginTransaction();
-      $campeonato = (new Campeonato())->fill($request->all());
-      $created = $campeonato->create($request->all());
-      $campeonato = $campeonato->getById($created->id);
+      $created = SisBolaoFacade::criarCampeonato($request->all());
+      $campeonato = $created->getById($created->id);
 
       if ($created !== null) {
         $campeonato->criarFases();

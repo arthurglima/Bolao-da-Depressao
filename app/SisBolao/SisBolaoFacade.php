@@ -10,12 +10,46 @@ class SisBolaoFacade
 
   /**
    * Cria um novo bolão
-   * @param $dados
+   * @param $dados - Array de dados do bolão
    * @return Bolao
    */
   public static function criarBolao($dados)
   {
     return (new Bolao($dados))->criar();
+  }
+
+  /**
+   * Cria um novo jogo
+   * @param $dados - array de dados do jogo
+   * @return bool
+   */
+  public static function criarJogo($dados)
+  {
+    return (new Jogo($dados))->save();
+  }
+
+  /**
+   * Cria um novo campeonato
+   * @param $dados - array de dados do campeonato
+   * @return Campeonato
+   */
+  public static function criarCampeonato($dados)
+  {
+    $campeonato = (new Campeonato())->fill($dados);
+    return $campeonato->create($dados);
+  }
+
+  /**
+   * Criação de um novo time
+   * @param $dados - dados do time
+   * @param null $file - arquivo de escudo do time
+   * @return bool
+   */
+  public static function criarTime($dados, $file = null)
+  {
+    $time = (new Time())->fill($dados);
+    $time->setEscudo($file);
+    return $time->save();
   }
 
   /**
