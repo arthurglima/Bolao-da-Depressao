@@ -4,6 +4,7 @@ namespace App\SisBolao;
 
 
 use App\User;
+use DB;
 
 class SisBolaoFacade
 {
