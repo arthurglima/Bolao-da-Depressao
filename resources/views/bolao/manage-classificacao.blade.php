@@ -1,16 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-
     <form action="{{url("boloes/{$bolao->id}/sair")}}" method="POST">
         @method('POST') @csrf
         <div style="padding: 15px">
             <h3>{{$bolao->nome}}</h3>
             <small>{{$bolao->campeonato_nome}}</small>
-            <button class="btn btn-sm btn-primary" type="submit"
-                    style="color: white; margin-left: 5px">
-                Sair do Bolão
-            </button>
+            @if(!$bolao->is_owner)
+                <button class="btn btn-sm btn-primary" type="submit"
+                        style="color: white; margin-left: 5px">
+                    Sair do Bolão
+                </button>
+            @else
+                <button class="btn btn-sm btn-primary" type="submit"
+                        style="color: white; margin-left: 5px">
+                    Excluir bolão
+                </button>
+            @endif
         </div>
     </form>
     <div>

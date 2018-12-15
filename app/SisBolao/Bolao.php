@@ -168,18 +168,35 @@ class Bolao extends BolaoModel
 
   /**
    * Entra em um bolão
-   * @return BolaoHasUser
+   * @return mixed
    */
-  public function entrarNoBolao(): BolaoHasUser
+  public function entrarNoBolao()
   {
-    return BolaoHasUser::updateOrCreate(
-      [
+    $bhu = DB::table('bolao_has_user as bhu')
+      ->where('bolao_id', '=', $this->id)
+      ->where('users_id', '=', Auth::user()->id)
+      ->first();
+
+    if ($bhu == null) {
+      $bhu = BolaoHasUser::create([
         'bolao_id' => $this->id,
         'users_id' => Auth::user()->id,
         'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
         'e_dono' => 0,
         'is_inactive' => 0
       ]);
+    } else {
+      DB::table('bolao_has_user as bhu')
+        ->where('bolao_id', '=', $this->id)
+        ->where('users_id', '=', Auth::user()->id)
+        ->update([
+          'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
+          'e_dono' => 0,
+          'is_inactive' => 0
+        ]);
+    }
+
+    return $bhu;
   }
 
   /**
@@ -191,7 +208,8 @@ class Bolao extends BolaoModel
     return BolaoHasUser::where('bolao_id', '=', $this->id)
       ->where('users_id', '=', Auth::user()->id)
       ->update([
-        'is_inactive' => 1
+        'is_inactive' => 1,
+        'esta_aprovado' => 0,
       ]);
   }
 
