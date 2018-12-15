@@ -27,10 +27,11 @@ class Bolao extends BolaoModel
     return $this->select('bolao.*', 'c.nome as campeonato_nome')
       ->join('bolao_has_user as bhu', function ($query) {
         $query->on('bolao.id', '=', 'bhu.bolao_id')
-          ->where('bhu.esta_aprovado', '=', 1)
-          ->where('bhu.users_id', '=', Auth::user()->id);
+          ->where('bhu.esta_aprovado', '=', 1);
       })
       ->join('campeonato as c', 'c.id', 'bolao.campeonato_id')
+      ->where('bhu.is_inactive', '=', 0)
+      ->where('bhu.users_id', '=', Auth::user()->id)
       ->get();
   }
 
