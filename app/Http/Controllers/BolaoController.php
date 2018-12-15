@@ -8,7 +8,6 @@ use App\SisBolao\Palpite;
 use App\SisBolao\SisBolaoFacade;
 use Illuminate\Http\Request;
 use DB;
-use Illuminate\Support\Facades\Auth;
 
 class BolaoController extends Controller
 {
@@ -197,7 +196,7 @@ class BolaoController extends Controller
   {
     try {
       $bolao = (new Bolao())->getById($bolao_id, true);
-      $bolao->entrarNoBolao(Auth::user()->id);
+      $bolao->entrarNoBolao();
       if ($bolao->is_moderado) {
         return redirect('home')->with('success', 'Pedido de entrada feito ao criador do bolão');
       } else {
@@ -206,7 +205,22 @@ class BolaoController extends Controller
     } catch (\Exception $e) {
       return redirect('home')->with('error', $e->getMessage());
     }
+  }
 
+  /**
+   * Sai de um bolão
+   * @param $bolao_id - Identificador do bolão
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function sairDoBolao($bolao_id)
+  {
+    try {
+      $bolao = (new Bolao())->getById($bolao_id);
+      $bolao->sairDoBolao();
+      return redirect('boloes')->with('success', 'Você saiu do bolão');
+    } catch (\Exception $e) {
+      return redirect('boloes')->with('error', $e->getMessage());
+    }
   }
 
   /**

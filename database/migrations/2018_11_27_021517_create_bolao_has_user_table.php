@@ -18,7 +18,7 @@ class CreateBolaoHasUserTable extends Migration
       $table->foreign('bolao_id')->references('id')->on('bolao');
       $table->integer('users_id')->unsigned();
       $table->foreign('users_id')->references('id')->on('users');
-      $table->smallInteger('esta_aprovado')->default(1);
+      $table->smallInteger('esta_aprovado')->default(0);
       $table->smallInteger('e_dono')->default(0);
       $table->boolean('is_inactive')->default(0);
       $table->primary(['bolao_id', 'users_id']);

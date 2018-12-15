@@ -34,7 +34,7 @@ class HomeController extends Controller
     $query = $request->input('query', null);
     $busca = false;
 
-    $boloes = Bolao::select('bolao.*', 'c.nome as campeonato_nome', 'bhu.e_dono', 'bhu.esta_aprovado')
+    $boloes = Bolao::select('bolao.*', 'c.nome as campeonato_nome', 'bhu.e_dono', 'bhu.esta_aprovado', 'bhu.is_inactive')
       ->join('campeonato as c', 'c.id', '=', 'bolao.campeonato_id')
       ->leftJoin('bolao_has_user as bhu', function ($j) {
         $j->on('bhu.bolao_id', '=', 'bolao.id')

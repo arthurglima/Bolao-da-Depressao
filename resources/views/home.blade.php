@@ -18,7 +18,7 @@
             @if($busca)
                 Busca por "{{$query}}"
             @else
-                5 Bolões Favoritos
+                Bolões Favoritos
             @endif
         </div>
         <div class="card-body">
@@ -33,6 +33,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @foreach($boloes as $bolao)
                     <tr>
                         <td>{{$bolao->nome}}</td>
@@ -55,7 +56,7 @@
                                                     type="submit"> Pedir entrada
                                             </button>
                                         </div>
-                                    @elseif ($bolao->is_moderado == 0 && $bolao->esta_aprovado == 1)
+                                    @elseif ($bolao->is_moderado == 0 && ($bolao->esta_aprovado == 1 && !$bolao->is_inactive))
                                         <div class="float-right">
                                             <a class="btn btn-sm btn-secondary" style="color: white"
                                                href="boloes/{{$bolao->id}}/classificacao"> Visualizar
@@ -67,14 +68,22 @@
                                                     type="submit"> Aguardando aprovação
                                             </button>
                                         </div>
+                                    @elseif($bolao->is_moderado == 1 && ($bolao->esta_aprovado == 1 && !$bolao->is_inactive))
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-secondary" style="color: white"
+                                               href="boloes/{{$bolao->id}}/classificacao"> Visualizar
+                                            </a>
+                                        </div>
                                     @endif
                                 </form>
                             @else
-                                <div class="float-right">
-                                    <a class="btn btn-sm btn-secondary" style="color: white"
-                                       href="boloes/{{$bolao->id}}/classificacao"> Visualizar
-                                    </a>
-                                </div>
+                                @if(!$bolao->is_inactive)
+                                    <div class="float-right">
+                                        <a class="btn btn-sm btn-secondary" style="color: white"
+                                           href="boloes/{{$bolao->id}}/classificacao"> Visualizar
+                                        </a>
+                                    </div>
+                                @endif
                             @endif
                         </td>
                     </tr>

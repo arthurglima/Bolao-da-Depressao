@@ -1,10 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div style="padding: 15px">
-        <h3>{{$bolao->nome}}</h3>
-        <small>{{$bolao->campeonato_nome}}</small>
-    </div>
+    <form action="{{url("boloes/{$bolao->id}/sair")}}">
+        <div style="padding: 15px">
+            <h3>{{$bolao->nome}}</h3>
+            <small>{{$bolao->campeonato_nome}}</small>
+            <button class="btn btn-sm btn-primary" type="submit"
+                    style="color: white; margin-left: 5px">
+                Sair do Bolão
+            </button>
+        </div>
+    </form>
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link" href="classificacao">Classificação</a>

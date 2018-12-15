@@ -38,7 +38,7 @@ class Bolao extends BolaoModel
   /**
    * Retorna o bolão pelo ID;
    * @param int $id - Identificador do Time
-   * @param bool $general
+   * @param bool $general - Verifica se é para trazer sem relação de usuário
    * @return Bolao
    */
   public function getById(int $id, $general = false)
@@ -168,17 +168,30 @@ class Bolao extends BolaoModel
 
   /**
    * Entra em um bolão
-   * @param $user_id - Identificador do usuário que pediu entrada
    * @return BolaoHasUser
    */
-  public function entrarNoBolao($user_id): BolaoHasUser
+  public function entrarNoBolao(): BolaoHasUser
   {
     return BolaoHasUser::updateOrCreate(
       [
         'bolao_id' => $this->id,
-        'users_id' => $user_id,
+        'users_id' => Auth::user()->id,
         'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
-        'e_dono' => 0
+        'e_dono' => 0,
+        'is_inactive' => 0
+      ]);
+  }
+
+  /**
+   * Sair de um bolão
+   * @return int
+   */
+  public function sairDoBolao(): int
+  {
+    return BolaoHasUser::where('bolao_id', '=', $this->id)
+      ->where('users_id', '=', Auth::user()->id)
+      ->update([
+        'is_inactive' => 1
       ]);
   }
 
