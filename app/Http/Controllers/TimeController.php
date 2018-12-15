@@ -29,7 +29,7 @@ class TimeController extends Controller
    */
   public function index()
   {
-    $times = Time::all();
+    $times = Time::select('*')->paginate(5);
     $Carbon = new Carbon();
     return view('times.index', compact('times', 'Carbon'));
   }

@@ -77,7 +77,7 @@ class Bolao extends Model
       ->orderBy('placar', 'DESC')
       ->orderBy('gols_vencedor', 'DESC')
       ->orderBy('gols_perdedor', 'DESC')
-      ->get();
+      ->paginate(10);
 
     return $list;
   }

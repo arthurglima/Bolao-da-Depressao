@@ -57,6 +57,7 @@
                 @endif
                 </tbody>
             </table>
+            {{$times->links()}}
         </div>
     </div>
 

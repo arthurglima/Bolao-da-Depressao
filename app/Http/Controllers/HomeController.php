@@ -49,8 +49,7 @@ class HomeController extends Controller
       $boloes = $boloes->where(DB::raw('lower(bolao.nome)'), 'like', '%' . strtolower($query) . '%');
     }
 
-    $boloes = $boloes->limit(5);
-    $boloes = $boloes->get();
+    $boloes = $boloes->paginate(5);
 
     return view('home', compact('boloes', 'busca', 'query'));
   }

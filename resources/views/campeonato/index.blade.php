@@ -57,6 +57,7 @@
                 @endif
                 </tbody>
             </table>
+            {{$campeonatos->links()}}
         </div>
     </div>
 

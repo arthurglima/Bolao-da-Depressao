@@ -76,6 +76,7 @@
             @endforeach
             </tbody>
         </table>
+        {{$classificacao->links()}}
 
     </div>
 @endsection

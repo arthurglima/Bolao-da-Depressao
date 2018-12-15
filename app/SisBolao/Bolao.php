@@ -32,7 +32,7 @@ class Bolao extends BolaoModel
       ->join('campeonato as c', 'c.id', 'bolao.campeonato_id')
       ->where('bhu.is_inactive', '=', 0)
       ->where('bhu.users_id', '=', Auth::user()->id)
-      ->get();
+      ->paginate(5);
   }
 
   /**

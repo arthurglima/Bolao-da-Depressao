@@ -90,6 +90,6 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $boloes->links() }}
         </div>
-    </div>
 @endsection

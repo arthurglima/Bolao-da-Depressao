@@ -27,7 +27,7 @@ class CampeonatoController extends Controller
    */
   public function index()
   {
-    $campeonatos = Campeonato::all();
+    $campeonatos = Campeonato::select("*")->paginate(5);
     $Carbon = new Carbon();
     return view('campeonato.index', compact('campeonatos', 'Carbon'));
   }
