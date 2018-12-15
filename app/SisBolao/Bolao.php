@@ -52,6 +52,7 @@ class Bolao extends BolaoModel
         }
       })
       ->where('bolao.id', '=', $id)
+      ->where('bhu.is_inactive', '=', 0)
       ->first();
     if ($bolao !== null) {
       $this->fillFields($bolao->toArray());
