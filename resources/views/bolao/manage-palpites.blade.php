@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{url("boloes/{$bolao->id}/sair")}}">
+    <form action="{{url("boloes/{$bolao->id}/sair")}}" method="POST">
+        @method('POST') @csrf
         <div style="padding: 15px">
             <h3>{{$bolao->nome}}</h3>
             <small>{{$bolao->campeonato_nome}}</small>

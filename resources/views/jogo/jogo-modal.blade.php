@@ -13,8 +13,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="fase_campeonato_id" value="{{$fase->campeonato_id}}">
-                    <input type="hidden" name="fase_id" value="{{$fase->id}}">
+                    <input type="hidden" name="fase_campeonato_id" id="fase_campeonato_id"
+                           value="{{$fase->campeonato_id}}">
+                    <input type="hidden" name="fase_id" id="fase_id" value="{{$fase->id}}">
                     <div class="row">
                         <div class="form-group col col-6">
                             <label for="campeonato">Data do jogo</label>
@@ -55,7 +56,15 @@
 
 <script>
   $("#time_mandante").autocomplete({
-    source: '/times/getbyname',
+    source: function (request, response) {
+      $.getJSON("/times/getbyname", {
+          fase_id: $('#fase_id').val(),
+          campeonato_id: $('#fase_campeonato_id').val(),
+          term: $('#time_mandante').val(),
+          except: $('#time_id_visitante').val()
+        },
+        response);
+    },
     minLength: 2,
     select: function (event, ui) {
       $("#time_mandante").val(ui.item.value);
@@ -66,7 +75,15 @@
   });
 
   $("#time_visitante").autocomplete({
-    source: '/times/getbyname',
+    source: function (request, response) {
+      $.getJSON("/times/getbyname", {
+          fase_id: $('#fase_id').val(),
+          campeonato_id: $('#fase_campeonato_id').val(),
+          term: $('#time_visitante').val(),
+          except: $('#time_id_mandante').val()
+        },
+        response);
+    },
     minLength: 2,
     select: function (event, ui) {
       $("#time_visitante").val(ui.item.value);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jogo;
 use App\SisBolao\SisBolaoFacade;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -99,7 +100,21 @@ class TimeController extends Controller
   public function getTimesByName(Request $request)
   {
     $query = $request->input('term');
+    $fase_id = $request->input('fase_id');
+    $campeonato_id = $request->input('campeonato_id');
+    $except = $request->input('except');
+
+    $time_ids = Jogo::where('fase_id', '=', $fase_id)
+      ->where('fase_campeonato_id', '=', $campeonato_id)
+      ->get();
+
+    $mandante = $time_ids->pluck('time_id_mandante')->all();
+    $visitante = $time_ids->pluck('time_id_visitante')->all();
+    $time_ids = array_merge($mandante, $visitante);
+
     $times = Time::select('nome as value', 'id')
+      ->whereNotIn('time.id', $time_ids)
+      ->where('time.id', '<>', $except)
       ->where(DB::raw('lower(nome)'), 'like', '%' . strtolower($query) . '%')->get();
 
     return Response::json($times);
