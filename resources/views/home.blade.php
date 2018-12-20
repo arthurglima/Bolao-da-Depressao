@@ -82,7 +82,7 @@
                                                href="boloes/{{$bolao->id}}/classificacao"> Visualizar
                                             </a>
                                         </div>
-                                    @elseif ($bolao->is_inactive && $bolao->is_moderado == 1 && $bolao->esta_aprovado == 1)
+                                    @elseif ($bolao->is_moderado == 1 && ($bolao->is_inactive && $bolao->esta_aprovado == 1))
                                         <div class="float-right">
                                             <button class="btn btn-sm btn-primary" style="color: white"
                                                     type="submit"> Pedir entrada
@@ -94,6 +94,10 @@
                                                     type="submit"> Participar
                                             </button>
                                         </div>
+                                    @else
+                                        {{$bolao->is_moderado}} |
+                                        {{$bolao->is_inactive}} |
+                                        {{$bolao->esta_aprovado}}
                                     @endif
                                 @endif
                             </form>
