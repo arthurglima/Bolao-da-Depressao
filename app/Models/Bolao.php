@@ -75,14 +75,24 @@ class Bolao extends Model
           INNER JOIN `bolao` AS `b` ON `bhu`.`bolao_id` = `b`.`id`
         WHERE `bhu`.`esta_aprovado` = 1
         ORDER BY 
-                 CASE WHEN b.desempate = 0
-                    THEN minutos_palpite IS NULL END ASC, minutos_palpite DESC,
-                  CASE WHEN b.desempate = 1
-                    THEN minutos_palpite IS NULL END ASC, minutos_palpite ASC,
-                  CASE WHEN b.desempate = 2
-                    THEN editou_palpite > 0 END ASC, minutos_palpite IS NULL ASC, minutos_palpite DESC,
-                  CASE WHEN b.desempate = 3
-                    THEN editou_palpite = 0 END ASC, minutos_palpite IS NULL ASC, minutos_palpite ASC
+            CASE WHEN b.desempate = 0
+              THEN minutos_palpite END DESC,
+            CASE WHEN b.desempate = 1
+              THEN -minutos_palpite END DESC,
+          
+            CASE WHEN b.desempate = 2
+              THEN minutos_palpite IS NULL END ASC,
+            CASE WHEN b.desempate = 2
+              THEN -editou_palpite END DESC,
+            CASE WHEN b.desempate = 2
+              THEN minutos_palpite END DESC,
+          
+            CASE WHEN b.desempate = 3
+              THEN minutos_palpite IS NULL END ASC,
+            CASE WHEN b.desempate = 3
+              THEN -editou_palpite END DESC,
+            CASE WHEN b.desempate = 3
+              THEN -minutos_palpite END DESC
     "));
 
     $list = new LengthAwarePaginator($list, count($list), 10, 1);
