@@ -42,7 +42,7 @@
     <div class="content" style="padding: 15px">
         <div class="navbar navbar-light bg-light">
             <div class="navbar-brand" style="font-size: 16px" href="#">
-                Critério de desempate:
+                Critério de desempate: Placar, Gols Vencedor, Gols Perdedor
                 <small><b>
                         @switch($classificacao[0]->desempate)
                             @case(0)
