@@ -53,7 +53,7 @@
                 <th>Visitante</th>
                 <th class="text-center">Palpites</th>
                 <th class="text-center">Placar</th>
-                <th>Status do jogo</th>
+                {{--<th>Status do jogo</th>--}}
                 <th></th>
             </tr>
             </thead>
@@ -79,9 +79,9 @@
                     <td class="text-center">
                         {{$palpite->resultado_mandante}} X {{$palpite->resultado_visitante}}
                     </td>
-                    <td>
-                        {{$palpite->status_nome}}
-                    </td>
+                    {{--<td>--}}
+                        {{--{{$palpite->status_nome}}--}}
+                    {{--</td>--}}
                     <td></td>
                 </tr>
             @endforeach
