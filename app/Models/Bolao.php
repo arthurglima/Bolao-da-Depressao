@@ -76,6 +76,7 @@ class Bolao extends Model
         WHERE `bhu`.`esta_aprovado` = 1
         ORDER BY 
          (placar + gols_vencedor + gols_vencedor) DESC,
+          placar DESC,
           minutos_palpite IS NULL ASC,
           CASE WHEN b.desempate = 0
             THEN minutos_palpite END DESC,
