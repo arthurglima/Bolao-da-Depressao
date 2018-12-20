@@ -76,7 +76,7 @@
                                         </div>
                                     @endif
                                 @else
-                                    @if(!$bolao->is_inactive)
+                                    @if(!$bolao->is_inactive && $bolao->esta_aprovado == 1)
                                         <div class="float-right">
                                             <a class="btn btn-sm btn-secondary" style="color: white"
                                                href="boloes/{{$bolao->id}}/classificacao"> Visualizar
