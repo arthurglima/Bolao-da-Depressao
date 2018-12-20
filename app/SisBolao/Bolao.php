@@ -218,7 +218,7 @@ class Bolao extends BolaoModel
   {
     if ($this->is_owner) {
       if ($this->bolaoTemUsuario()) {
-        throw new \Exception("Existem usuário no bolão, não é possivel exclui-lo");
+        throw new \Exception("Existem usuários no bolão, não é possivel exclui-lo");
       } else {
         Bolao::where('id', '=', $this->id)
           ->update(['is_inactive' => 1]);
