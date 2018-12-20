@@ -66,6 +66,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="navbar navbar-light bg-light">
+                        <div class="navbar-brand" style="font-size: 16px" href="#">Configurações do bolão</div>
+                        <small>(Pontuações)</small>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col col-6">
+                            <label for="placar">Pontos do placar</label>
+                            <input id="placar" name="pontos_placar" type='number' value="1" class="form-control" required/>
+                        </div>
+                        <div class="form-group col col-6">
+                            <label for="vencedor">Pontos do gols do vencedor</label>
+                            <input id="vencedor" name="pontos_gol_vencedor" type='number' value="1" class="form-control"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col col-12">
+                            <label for="perdedor">Pontos do gols do perdedor</label>
+                            <input id="perdedor" name="pontos_gol_perdedor" type='number' value="1" class="form-control"
+                                   required/>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Criar</button>

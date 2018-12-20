@@ -13,7 +13,8 @@ class Bolao extends Model
 
 
   protected $fillable = [
-    'nome', 'data_inicio', 'is_moderado', 'can_buscar', 'campeonato_id', 'valor_premiacao'
+    'nome', 'data_inicio', 'is_moderado', 'can_buscar', 'campeonato_id',
+    'valor_premiacao', 'pontos_placar', 'pontos_gol_vencedor', 'pontos_gol_perdedor'
   ];
 
   /**
@@ -35,13 +36,15 @@ class Bolao extends Model
     $golsvencedor = Palpite::select(DB::raw('count(palpite.id)'))
       ->join('jogo as j', function ($j) {
         $j->on('palpite.jogo_id', '=', 'j.id')
-          ->on([
-            ['palpite.palpite_mandante', '=', 'j.resultado_mandante'],
-            ['palpite.palpite_mandante', '>', 'j.resultado_visitante']
-          ])->orOn([
-            ['palpite.palpite_visitante', '=', 'j.resultado_visitante'],
-            ['palpite.palpite_visitante', '>', 'j.resultado_mandante']
-          ]);
+          ->on(function ($o) {
+            $o->on([
+              ['palpite.palpite_mandante', '=', 'j.resultado_mandante'],
+              ['palpite.palpite_mandante', '>=', 'j.resultado_visitante']
+            ])->orOn([
+              ['palpite.palpite_visitante', '=', 'j.resultado_visitante'],
+              ['palpite.palpite_visitante', '>=', 'j.resultado_mandante']
+            ]);
+          });
       })
       ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
       ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
@@ -49,13 +52,16 @@ class Bolao extends Model
     $golsperdedor = Palpite::select(DB::raw('count(palpite.id)'))
       ->join('jogo as j', function ($j) {
         $j->on('palpite.jogo_id', '=', 'j.id')
-          ->on([
-            ['palpite.palpite_mandante', '=', 'j.resultado_mandante'],
-            ['palpite.palpite_mandante', '<', 'j.resultado_visitante']
-          ])->orOn([
-            ['palpite.palpite_visitante', '=', 'j.resultado_visitante'],
-            ['palpite.palpite_visitante', '<', 'j.resultado_mandante']
-          ]);
+          ->on(function ($o) {
+            $o->on([
+              ['palpite.palpite_mandante', '=', 'j.resultado_mandante'],
+              ['palpite.palpite_mandante', '<=', 'j.resultado_visitante']
+            ])->orOn([
+              ['palpite.palpite_visitante', '=', 'j.resultado_visitante'],
+              ['palpite.palpite_visitante', '<=', 'j.resultado_mandante']
+            ]);
+          });
+
       })
       ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
       ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
@@ -64,15 +70,19 @@ class Bolao extends Model
       'users.id',
       'users.name',
       'users.email',
-      DB::raw('(' . $placar->toSql() . ') as placar'),
-      DB::raw('(' . $golsvencedor->toSql() . ') as gols_vencedor'),
-      DB::raw('(' . $golsperdedor->toSql() . ') as gols_perdedor')
+      'b.pontos_placar',
+      'b.pontos_gol_vencedor',
+      'b.pontos_gol_perdedor',
+      DB::raw('(' . $placar->toSql() . ') * b.pontos_placar as placar'),
+      DB::raw('(' . $golsvencedor->toSql() . ')  * b.pontos_gol_vencedor as gols_vencedor'),
+      DB::raw('(' . $golsperdedor->toSql() . ')  * b.pontos_gol_perdedor as gols_perdedor')
     )
       ->setBindings(array_merge($placar->getBindings(), $golsvencedor->getBindings(), $golsperdedor->getBindings()))
       ->join('bolao_has_user as bhu', function ($join) {
         $join->on('users.id', '=', 'bhu.users_id')
           ->where('bhu.bolao_id', '=', $this->id);
       })
+      ->join('bolao as b', 'bhu.bolao_id', '=', 'b.id')
       ->where('bhu.esta_aprovado', '=', 1)
       ->orderBy('placar', 'DESC')
       ->orderBy('gols_vencedor', 'DESC')

@@ -68,9 +68,13 @@
                             {{$item->name}}
                         @endif
                     </td>
-                    <td class="text-center">{{$item->placar}}</td>
-                    <td class="text-center">{{$item->gols_vencedor}}</td>
-                    <td class="text-center">{{$item->gols_perdedor}}</td>
+                    <td class="text-center">{{$item->placar}} ({{ $item->placar / $item->pontos_placar }})</td>
+                    <td class="text-center">{{$item->gols_vencedor}}
+                        ({{ $item->gols_vencedor / $item->pontos_gol_vencedor }})
+                    </td>
+                    <td class="text-center">{{$item->gols_perdedor}}
+                        ({{ $item->gols_perdedor / $item->pontos_gol_perdedor }})
+                    </td>
                     <td class="text-center">{{  $item->placar +  $item->gols_vencedor + $item->gols_perdedor}}</td>
                 </tr>
             @endforeach

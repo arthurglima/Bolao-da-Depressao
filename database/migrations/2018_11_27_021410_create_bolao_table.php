@@ -22,6 +22,9 @@ class CreateBolaoTable extends Migration
       $table->integer('campeonato_id')->unsigned();
       $table->foreign('campeonato_id')->references('id')->on('campeonato');
       $table->double('valor_premiacao', 15, 2);
+      $table->integer('pontos_placar')->default(1);
+      $table->integer('pontos_gol_vencedor')->default(1);
+      $table->integer('pontos_gol_perdedor')->default(1);
       $table->timestamps();
     });
   }
