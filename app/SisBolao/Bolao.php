@@ -4,6 +4,7 @@ namespace App\SisBolao;
 
 use App\Models\Bolao as BolaoModel;
 use App\Models\BolaoHasUser;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -119,6 +120,14 @@ class Bolao extends BolaoModel
   }
 
   /**
+   * Verifica se tem usuário no bolao além do dono
+   */
+  public function bolaoTemUsuario()
+  {
+    return BolaoHasUser::where('bolao_id', '=', $this->id)->count() > 1;
+  }
+
+  /**
    * @param $decisao - 1 para confirmar, 0 - para recusar
    * @param $user_id - identificador do usuário
    * @return mixed
@@ -203,15 +212,27 @@ class Bolao extends BolaoModel
   /**
    * Sair de um bolão
    * @return int
+   * @throws \Exception
    */
   public function sairDoBolao(): int
   {
+    if ($this->is_owner) {
+      if ($this->bolaoTemUsuario()) {
+        throw new \Exception("Existem usuário no bolão, não é possivel exclui-lo");
+      } else {
+        Bolao::where('id', '=', $this->id)
+          ->update(['is_inactive' => 1]);
+      }
+    }
+
     return BolaoHasUser::where('bolao_id', '=', $this->id)
       ->where('users_id', '=', Auth::user()->id)
       ->update([
         'is_inactive' => 1,
-        'esta_aprovado' => 0,
+        'esta_aprovado' => 1,
       ]);
+
+
   }
 
 }

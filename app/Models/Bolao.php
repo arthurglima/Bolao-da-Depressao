@@ -16,7 +16,7 @@ class Bolao extends Model
   protected $fillable = [
     'nome', 'data_inicio', 'is_moderado', 'can_buscar', 'campeonato_id',
     'valor_premiacao', 'pontos_placar', 'pontos_gol_vencedor', 'pontos_gol_perdedor',
-    'desempate'
+    'desempate', 'is_inactive'
   ];
 
   /**

@@ -41,8 +41,8 @@
                         <td>{{ \Carbon\Carbon::parse($bolao->data_inicio)->format('d/m/Y')  }}</td>
                         <td>R$ {{ number_format($bolao->valor_premiacao, 2)  }}</td>
                         <td>
-                            @if(!$bolao->e_dono)
-                                <form action="{{url("boloes/{$bolao->id}/participar")}}" method="POST">
+                            <form action="{{url("boloes/{$bolao->id}/participar")}}" method="POST">
+                                @if(!$bolao->e_dono)
                                     @method('POST') @csrf
                                     @if($bolao->is_moderado == 0 && $bolao->esta_aprovado == null)
                                         <div class="float-right">
@@ -65,7 +65,7 @@
                                     @elseif($bolao->is_moderado == 1 && $bolao->esta_aprovado == 0)
                                         <div class="float-right">
                                             <button class="btn btn-sm btn-primary" style="color: white"
-                                                    type="submit"> Aguardando aprovação
+                                                    type="button"> Aguardando aprovação
                                             </button>
                                         </div>
                                     @elseif($bolao->is_moderado == 1 && ($bolao->esta_aprovado == 1 && !$bolao->is_inactive))
@@ -75,16 +75,28 @@
                                             </a>
                                         </div>
                                     @endif
-                                </form>
-                            @else
-                                @if(!$bolao->is_inactive)
-                                    <div class="float-right">
-                                        <a class="btn btn-sm btn-secondary" style="color: white"
-                                           href="boloes/{{$bolao->id}}/classificacao"> Visualizar
-                                        </a>
-                                    </div>
+                                @else
+                                    @if(!$bolao->is_inactive)
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-secondary" style="color: white"
+                                               href="boloes/{{$bolao->id}}/classificacao"> Visualizar
+                                            </a>
+                                        </div>
+                                    @elseif ($bolao->is_inactive && $bolao->is_moderado == 1 && $bolao->esta_aprovado == 1)
+                                        <div class="float-right">
+                                            <button class="btn btn-sm btn-primary" style="color: white"
+                                                    type="submit"> Pedir entrada
+                                            </button>
+                                        </div>
+                                    @elseif($bolao->is_inactive && $bolao->is_moderado == 0 && $bolao->esta_aprovado == 1)
+                                        <div class="float-right">
+                                            <button class="btn btn-sm btn-success" style="color: white"
+                                                    type="submit"> Participar
+                                            </button>
+                                        </div>
+                                    @endif
                                 @endif
-                            @endif
+                            </form>
                         </td>
                     </tr>
                 @endforeach

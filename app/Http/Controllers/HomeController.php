@@ -40,7 +40,8 @@ class HomeController extends Controller
         $j->on('bhu.bolao_id', '=', 'bolao.id')
           ->where('bhu.users_id', '=', Auth::user()->id);
       })
-      ->where('can_buscar', '=', 1);
+      ->where('can_buscar', '=', 1)
+      ->where('bolao.is_inactive', '=', 0);
 
     if ($query == null) {
       $boloes = $boloes->where('data_inicio', '>=', Carbon::now()->format('Y-m-d'));
