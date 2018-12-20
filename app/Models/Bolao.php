@@ -62,12 +62,12 @@ class Bolao extends Model
             (SELECT sum(timestampdiff(MINUTE, timestamp(palpite.created_at), timestamp(CONCAT(j.data_jogo, ' ', j.hora_jogo))))
              FROM `palpite`
                INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id`
-             WHERE `palpite`.`bolao_has_user_bolao_id` = 1 AND `palpite`.`bolao_has_user_users_id` = users.id)
+             WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id)
                                                                 AS minutos_palpite,
             (SELECT count(*)
              FROM `palpite`
                INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id`
-             WHERE (`palpite`.`bolao_has_user_bolao_id` = 1
+             WHERE (`palpite`.`bolao_has_user_bolao_id` = {$this->id}
                    AND `palpite`.`bolao_has_user_users_id` = users.id)
                    AND palpite.created_at <> palpite.updated_at) AS editou_palpite
         FROM `users`
