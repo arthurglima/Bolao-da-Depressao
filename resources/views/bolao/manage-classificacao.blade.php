@@ -45,10 +45,22 @@
             <tr>
                 <th class="text-center">Posição</th>
                 <th class="text-center">Nome</th>
-                <th class="text-center">Acertou Placar / Acertos</th>
-                <th class="text-center">Gols Vencedor / Acertos</th>
-                <th class="text-center">Gols Perdedor / Acertos</th>
-                <th class="text-center">Total</th>
+                <th class="text-center">
+                    Acertou Placar <br>
+                    <small>{{$classificacao[0]->pontos_placar}} ponto(s) por acerto</small>
+                </th>
+                <th class="text-center">
+                    Gols Vencedor <br>
+                    <small>{{$classificacao[0]->pontos_gol_vencedor}} ponto(s) por acerto</small>
+                </th>
+                <th class="text-center">
+                    Gols Perdedor <br>
+                    <small>{{$classificacao[0]->pontos_gol_perdedor}} ponto(s) por acerto</small>
+                </th>
+                <th class="text-center">
+                    Total <br>
+                    <small>Somatórios de pontos</small>
+                </th>
             </tr>
             </thead>
             <tbody>
