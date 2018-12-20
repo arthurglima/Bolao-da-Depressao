@@ -74,7 +74,8 @@
                     <div class="row">
                         <div class="form-group col col-6">
                             <label for="placar">Pontos do placar</label>
-                            <input id="placar" name="pontos_placar" type='number' value="1" class="form-control" required/>
+                            <input id="placar" name="pontos_placar" type='number' value="1" class="form-control"
+                                   required/>
                         </div>
                         <div class="form-group col col-6">
                             <label for="vencedor">Pontos do gols do vencedor</label>
@@ -87,6 +88,27 @@
                             <label for="perdedor">Pontos do gols do perdedor</label>
                             <input id="perdedor" name="pontos_gol_perdedor" type='number' value="1" class="form-control"
                                    required/>
+                        </div>
+                    </div>
+                    <div class="navbar navbar-light bg-light">
+                        <div class="navbar-brand" style="font-size: 16px" href="#">Configurações de desempate</div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col col-12">
+                            <select class="form-control" id="desempate" name="desempate" required>
+                                <option value="0" selected>
+                                    Quem criou palpites mais cedo
+                                </option>
+                                <option value="1">
+                                    Quem criou palpites mais proximo do horário do jogo
+                                </option>
+                                <option value="2">
+                                    Quem criou palpites mais cedo e não editou
+                                </option>
+                                <option value="3">
+                                    Quem criou palpites mais proximo do horário do jogo e não editou
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>

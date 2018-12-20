@@ -25,6 +25,7 @@ class CreateBolaoTable extends Migration
       $table->integer('pontos_placar')->default(1);
       $table->integer('pontos_gol_vencedor')->default(1);
       $table->integer('pontos_gol_perdedor')->default(1);
+      $table->integer('desempate')->default(0);
       $table->timestamps();
     });
   }

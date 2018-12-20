@@ -15,7 +15,8 @@ class Bolao extends Model
 
   protected $fillable = [
     'nome', 'data_inicio', 'is_moderado', 'can_buscar', 'campeonato_id',
-    'valor_premiacao', 'pontos_placar', 'pontos_gol_vencedor', 'pontos_gol_perdedor'
+    'valor_premiacao', 'pontos_placar', 'pontos_gol_vencedor', 'pontos_gol_perdedor',
+    'desempate'
   ];
 
   /**
@@ -29,6 +30,7 @@ class Bolao extends Model
           `users`.`id`,
           `users`.`name`,
           `users`.`email`,
+          `b`.`desempate`,
           `b`.`pontos_placar`,
           `b`.`pontos_gol_vencedor`,
           `b`.`pontos_gol_perdedor`,
@@ -56,12 +58,41 @@ class Bolao extends Model
                (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
                 `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
            WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id) *
-          b.pontos_gol_perdedor AS gols_perdedor
+          b.pontos_gol_perdedor AS gols_perdedor,
+          
+          (SELECT sum(timestampdiff(MINUTE, timestamp(palpite.created_at), timestamp(CONCAT(j.data_jogo, ' ', j.hora_jogo))))
+           FROM `palpite`
+             INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id` AND (
+               (`palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
+                `palpite`.`palpite_mandante` <= `j`.`resultado_visitante`) OR
+               (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
+                `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
+           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id)
+                                AS minutos_palpite,
+          (SELECT count(*)
+           FROM `palpite`
+             INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id` AND (
+               (`palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
+                `palpite`.`palpite_mandante` <= `j`.`resultado_visitante`) OR
+               (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
+                `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
+           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id}
+                 AND `palpite`.`bolao_has_user_users_id` = users.id
+                 AND palpite.created_at = palpite.updated_at)
+                                AS editou_palpite
         FROM `users`
           INNER JOIN `bolao_has_user` AS `bhu` ON `users`.`id` = `bhu`.`users_id` AND `bhu`.`bolao_id` = {$this->id}
           INNER JOIN `bolao` AS `b` ON `bhu`.`bolao_id` = `b`.`id`
         WHERE `bhu`.`esta_aprovado` = 1
-        ORDER BY `placar` DESC, `gols_vencedor` DESC, `gols_perdedor` DESC
+        ORDER BY 
+            CASE WHEN b.desempate = 0
+              THEN minutos_palpite END DESC,
+            CASE WHEN b.desempate = 1
+              THEN minutos_palpite END ASC,
+            CASE WHEN b.desempate = 2
+              THEN editou_palpite > 0 END ASC, minutos_palpite DESC, 
+            CASE WHEN b.desempate = 3
+              THEN editou_palpite = 0 END ASC , minutos_palpite ASC
     "));
 
     $list = new LengthAwarePaginator($list, count($list), 10, 1);
