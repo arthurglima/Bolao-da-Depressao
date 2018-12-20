@@ -74,24 +74,21 @@ class Bolao extends Model
           INNER JOIN `bolao_has_user` AS `bhu` ON `users`.`id` = `bhu`.`users_id` AND `bhu`.`bolao_id` = {$this->id}
           INNER JOIN `bolao` AS `b` ON `bhu`.`bolao_id` = `b`.`id`
         WHERE `bhu`.`esta_aprovado` = 1
-        ORDER BY 
-            `b`.`pontos_placar` ASC,
-            `b`.`pontos_gol_vencedor` ASC,
-            `b`.`pontos_gol_perdedor` ASC,
+        ORDER BY
+            placar DESC,
+            gols_vencedor DESC,
+            gols_perdedor DESC,
+            minutos_palpite IS NULL ASC,
             CASE WHEN b.desempate = 0
               THEN minutos_palpite END DESC,
             CASE WHEN b.desempate = 1
               THEN -minutos_palpite END DESC,
           
             CASE WHEN b.desempate = 2
-              THEN minutos_palpite IS NULL END ASC,
-            CASE WHEN b.desempate = 2
               THEN -editou_palpite END DESC,
             CASE WHEN b.desempate = 2
               THEN minutos_palpite END DESC,
           
-            CASE WHEN b.desempate = 3
-              THEN minutos_palpite IS NULL END ASC,
             CASE WHEN b.desempate = 3
               THEN -editou_palpite END DESC,
             CASE WHEN b.desempate = 3
