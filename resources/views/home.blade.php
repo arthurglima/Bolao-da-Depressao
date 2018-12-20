@@ -76,29 +76,13 @@
                                         </div>
                                     @endif
                                 @else
-                                    @if(!$bolao->is_inactive && $bolao->esta_aprovado == 1)
+                                    @if(!$bolao->is_inactive)
                                         <div class="float-right">
                                             <a class="btn btn-sm btn-secondary" style="color: white"
                                                href="boloes/{{$bolao->id}}/classificacao"> Visualizar
                                             </a>
                                         </div>
-                                    @elseif ($bolao->is_moderado == 1 && ($bolao->is_inactive && $bolao->esta_aprovado == 1))
-                                        <div class="float-right">
-                                            <button class="btn btn-sm btn-primary" style="color: white"
-                                                    type="submit"> Pedir entrada
-                                            </button>
-                                        </div>
-                                    @elseif( $bolao->is_moderado == 0 && ($bolao->is_inactive && $bolao->esta_aprovado == 1))
-                                        <div class="float-right">
-                                            <button class="btn btn-sm btn-success" style="color: white"
-                                                    type="submit"> Participar
-                                            </button>
-                                        </div>
-                                    @else
                                     @endif
-                                    {{$bolao->is_moderado}} |
-                                    {{$bolao->is_inactive}} |
-                                    {{$bolao->esta_aprovado}}
                                 @endif
                             </form>
                         </td>
