@@ -95,10 +95,10 @@
                                             </button>
                                         </div>
                                     @else
-                                        {{$bolao->is_moderado}} |
-                                        {{$bolao->is_inactive}} |
-                                        {{$bolao->esta_aprovado}}
                                     @endif
+                                    {{$bolao->is_moderado}} |
+                                    {{$bolao->is_inactive}} |
+                                    {{$bolao->esta_aprovado}}
                                 @endif
                             </form>
                         </td>
