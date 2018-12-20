@@ -119,7 +119,7 @@
                         ({{ $item->gols_perdedor / $item->pontos_gol_perdedor }})
                     </td>
                     <td class="text-center">
-                        {{ $item->minutos_palpite == 0 || $item->minutos_palpite == null ? '-' : $item->minutos_palpite . ' minutos antes'  }}
+                        {{ $item->minutos_palpite == 0 || $item->minutos_palpite == null ? 'Sem palpites' : $item->minutos_palpite . ' minutos antes'  }}
                     </td>
                     @if ($classificacao[0]->desempate > 1)
                         <td class="text-center">
