@@ -192,7 +192,6 @@ class Bolao extends BolaoModel
         'bolao_id' => $this->id,
         'users_id' => Auth::user()->id,
         'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
-        'e_dono' => 0,
         'is_inactive' => 0
       ]);
     } else {
@@ -201,7 +200,6 @@ class Bolao extends BolaoModel
         ->where('users_id', '=', Auth::user()->id)
         ->update([
           'esta_aprovado' => $this->is_moderado == 1 ? 0 : 1,
-          'e_dono' => 0,
           'is_inactive' => 0
         ]);
     }

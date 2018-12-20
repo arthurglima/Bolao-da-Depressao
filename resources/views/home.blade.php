@@ -88,7 +88,7 @@
                                                     type="submit"> Pedir entrada
                                             </button>
                                         </div>
-                                    @elseif($bolao->is_inactive && $bolao->is_moderado == 0 && $bolao->esta_aprovado == 1)
+                                    @elseif( $bolao->is_moderado == 0 && ($bolao->is_inactive && $bolao->esta_aprovado == 1))
                                         <div class="float-right">
                                             <button class="btn btn-sm btn-success" style="color: white"
                                                     type="submit"> Participar
