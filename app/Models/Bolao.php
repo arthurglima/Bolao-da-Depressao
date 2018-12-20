@@ -75,6 +75,9 @@ class Bolao extends Model
           INNER JOIN `bolao` AS `b` ON `bhu`.`bolao_id` = `b`.`id`
         WHERE `bhu`.`esta_aprovado` = 1
         ORDER BY 
+            `b`.`pontos_placar` ASC,
+            `b`.`pontos_gol_vencedor` ASC,
+            `b`.`pontos_gol_perdedor` ASC,
             CASE WHEN b.desempate = 0
               THEN minutos_palpite END DESC,
             CASE WHEN b.desempate = 1
