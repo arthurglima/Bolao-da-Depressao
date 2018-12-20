@@ -76,13 +76,13 @@ class Bolao extends Model
         WHERE `bhu`.`esta_aprovado` = 1
         ORDER BY 
             CASE WHEN b.desempate = 0
-              THEN minutos_palpite END DESC,
+              THEN -minutos_palpite END DESC,
             CASE WHEN b.desempate = 1
-              THEN minutos_palpite END ASC,
+              THEN -minutos_palpite END ASC,
             CASE WHEN b.desempate = 2
-              THEN editou_palpite > 0 END ASC, minutos_palpite DESC, 
+              THEN editou_palpite > 0 END ASC, -minutos_palpite DESC, 
             CASE WHEN b.desempate = 3
-              THEN editou_palpite = 0 END ASC , minutos_palpite ASC
+              THEN editou_palpite = 0 END ASC , -minutos_palpite ASC
     "));
 
     $list = new LengthAwarePaginator($list, count($list), 10, 1);
