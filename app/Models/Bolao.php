@@ -59,27 +59,17 @@ class Bolao extends Model
                 `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
            WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id) *
           b.pontos_gol_perdedor AS gols_perdedor,
-          
-          (SELECT sum(timestampdiff(MINUTE, timestamp(palpite.created_at), timestamp(CONCAT(j.data_jogo, ' ', j.hora_jogo))))
-           FROM `palpite`
-             INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id` AND (
-               (`palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
-                `palpite`.`palpite_mandante` <= `j`.`resultado_visitante`) OR
-               (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
-                `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
-           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id)
-                                AS minutos_palpite,
-          (SELECT count(*)
-           FROM `palpite`
-             INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id` AND (
-               (`palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
-                `palpite`.`palpite_mandante` <= `j`.`resultado_visitante`) OR
-               (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
-                `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
-           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id}
-                 AND `palpite`.`bolao_has_user_users_id` = users.id
-                 AND palpite.created_at = palpite.updated_at)
-                                AS editou_palpite
+            (SELECT sum(timestampdiff(MINUTE, timestamp(palpite.created_at), timestamp(CONCAT(j.data_jogo, ' ', j.hora_jogo))))
+             FROM `palpite`
+               INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id`
+             WHERE `palpite`.`bolao_has_user_bolao_id` = 1 AND `palpite`.`bolao_has_user_users_id` = users.id)
+                                                                AS minutos_palpite,
+            (SELECT count(*)
+             FROM `palpite`
+               INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id`
+             WHERE (`palpite`.`bolao_has_user_bolao_id` = 1
+                   AND `palpite`.`bolao_has_user_users_id` = users.id)
+                   AND palpite.created_at <> palpite.updated_at) AS editou_palpite
         FROM `users`
           INNER JOIN `bolao_has_user` AS `bhu` ON `users`.`id` = `bhu`.`users_id` AND `bhu`.`bolao_id` = {$this->id}
           INNER JOIN `bolao` AS `b` ON `bhu`.`bolao_id` = `b`.`id`
