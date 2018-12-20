@@ -45,9 +45,9 @@
             <tr>
                 <th class="text-center">Posição</th>
                 <th class="text-center">Nome</th>
-                <th class="text-center">Acertou Placar</th>
-                <th class="text-center">Gols Vencedor</th>
-                <th class="text-center">Gols Perdedor</th>
+                <th class="text-center">Acertou Placar / Acertos</th>
+                <th class="text-center">Gols Vencedor / Acertos</th>
+                <th class="text-center">Gols Perdedor / Acertos</th>
                 <th class="text-center">Total</th>
             </tr>
             </thead>

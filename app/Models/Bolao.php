@@ -5,6 +5,7 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class Bolao extends Model
@@ -23,72 +24,47 @@ class Bolao extends Model
    */
   public function getClassificacao()
   {
+    $list = DB::select(DB::raw("
+        SELECT
+          `users`.`id`,
+          `users`.`name`,
+          `users`.`email`,
+          `b`.`pontos_placar`,
+          `b`.`pontos_gol_vencedor`,
+          `b`.`pontos_gol_perdedor`,
+          (SELECT count(palpite.id)
+           FROM `palpite`
+             INNER JOIN `jogo` AS `j`
+               ON `palpite`.`jogo_id` = `j`.`id` AND `palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
+                  `palpite`.`palpite_visitante` = `j`.`resultado_visitante`
+           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id) *
+          b.pontos_placar       AS placar,
+          (SELECT count(palpite.id)
+           FROM `palpite`
+             INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id` AND (
+               (`palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
+                `palpite`.`palpite_mandante` >= `j`.`resultado_visitante`) OR
+               (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
+                `palpite`.`palpite_visitante` >= `j`.`resultado_mandante`))
+           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id) *
+          b.pontos_gol_vencedor AS gols_vencedor,
+          (SELECT count(palpite.id)
+           FROM `palpite`
+             INNER JOIN `jogo` AS `j` ON `palpite`.`jogo_id` = `j`.`id` AND (
+               (`palpite`.`palpite_mandante` = `j`.`resultado_mandante` AND
+                `palpite`.`palpite_mandante` <= `j`.`resultado_visitante`) OR
+               (`palpite`.`palpite_visitante` = `j`.`resultado_visitante` AND
+                `palpite`.`palpite_visitante` <= `j`.`resultado_mandante`))
+           WHERE `palpite`.`bolao_has_user_bolao_id` = {$this->id} AND `palpite`.`bolao_has_user_users_id` = users.id) *
+          b.pontos_gol_perdedor AS gols_perdedor
+        FROM `users`
+          INNER JOIN `bolao_has_user` AS `bhu` ON `users`.`id` = `bhu`.`users_id` AND `bhu`.`bolao_id` = {$this->id}
+          INNER JOIN `bolao` AS `b` ON `bhu`.`bolao_id` = `b`.`id`
+        WHERE `bhu`.`esta_aprovado` = 1
+        ORDER BY `placar` DESC, `gols_vencedor` DESC, `gols_perdedor` DESC
+    "));
 
-    $placar = Palpite::select(DB::raw('count(palpite.id)'))
-      ->join('jogo as j', function ($join) {
-        $join->on('palpite.jogo_id', '=', 'j.id')
-          ->on('palpite.palpite_mandante', '=', 'j.resultado_mandante')
-          ->on('palpite.palpite_visitante', '=', 'j.resultado_visitante');
-      })
-      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
-      ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
-
-    $golsvencedor = Palpite::select(DB::raw('count(palpite.id)'))
-      ->join('jogo as j', function ($j) {
-        $j->on('palpite.jogo_id', '=', 'j.id')
-          ->on(function ($o) {
-            $o->on([
-              ['palpite.palpite_mandante', '=', 'j.resultado_mandante'],
-              ['palpite.palpite_mandante', '>=', 'j.resultado_visitante']
-            ])->orOn([
-              ['palpite.palpite_visitante', '=', 'j.resultado_visitante'],
-              ['palpite.palpite_visitante', '>=', 'j.resultado_mandante']
-            ]);
-          });
-      })
-      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
-      ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
-
-    $golsperdedor = Palpite::select(DB::raw('count(palpite.id)'))
-      ->join('jogo as j', function ($j) {
-        $j->on('palpite.jogo_id', '=', 'j.id')
-          ->on(function ($o) {
-            $o->on([
-              ['palpite.palpite_mandante', '=', 'j.resultado_mandante'],
-              ['palpite.palpite_mandante', '<=', 'j.resultado_visitante']
-            ])->orOn([
-              ['palpite.palpite_visitante', '=', 'j.resultado_visitante'],
-              ['palpite.palpite_visitante', '<=', 'j.resultado_mandante']
-            ]);
-          });
-
-      })
-      ->where('palpite.bolao_has_user_bolao_id', '=', $this->id)
-      ->where('palpite.bolao_has_user_users_id', '=', DB::raw('users.id'));
-
-    $list = User::select(
-      'users.id',
-      'users.name',
-      'users.email',
-      'b.pontos_placar',
-      'b.pontos_gol_vencedor',
-      'b.pontos_gol_perdedor',
-      DB::raw('(' . $placar->toSql() . ') * b.pontos_placar as placar'),
-      DB::raw('(' . $golsvencedor->toSql() . ')  * b.pontos_gol_vencedor as gols_vencedor'),
-      DB::raw('(' . $golsperdedor->toSql() . ')  * b.pontos_gol_perdedor as gols_perdedor')
-    )
-      ->setBindings(array_merge($placar->getBindings(), $golsvencedor->getBindings(), $golsperdedor->getBindings()))
-      ->join('bolao_has_user as bhu', function ($join) {
-        $join->on('users.id', '=', 'bhu.users_id')
-          ->where('bhu.bolao_id', '=', $this->id);
-      })
-      ->join('bolao as b', 'bhu.bolao_id', '=', 'b.id')
-      ->where('bhu.esta_aprovado', '=', 1)
-      ->orderBy('placar', 'DESC')
-      ->orderBy('gols_vencedor', 'DESC')
-      ->orderBy('gols_perdedor', 'DESC')
-      ->paginate(10);
-
+    $list = new LengthAwarePaginator($list, count($list), 10, 1);
     return $list;
   }
 
