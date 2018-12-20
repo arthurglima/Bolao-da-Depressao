@@ -44,7 +44,7 @@
             <div class="navbar-brand" style="font-size: 16px" href="#">
                 Critério de desempate:
                 <small><b>
-                        Placar, Gols Vencedor, Gols Perdedor,
+                        Somatório de pontos, 
                         @switch($classificacao[0]->desempate)
                             @case(0)
                             Quem criou palpites mais cedo
@@ -70,7 +70,7 @@
                 <th class="text-center">Nome</th>
                 <th class="text-center">
                     Total <br>
-                    <small>Somatórios de pontos</small>
+                    <small>Somatório de pontos</small>
                 </th>
                 <th class="text-center">
                     Acertou Placar <br>
