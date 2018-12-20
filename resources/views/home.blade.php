@@ -44,13 +44,13 @@
                             <form action="{{url("boloes/{$bolao->id}/participar")}}" method="POST">
                                 @if(!$bolao->e_dono)
                                     @method('POST') @csrf
-                                    @if($bolao->is_moderado == 0 && $bolao->esta_aprovado == null)
+                                    @if($bolao->is_moderado == 0 && ($bolao->esta_aprovado == null || $bolao->esta_aprovado == 0))
                                         <div class="float-right">
                                             <button class="btn btn-sm btn-success" style="color: white"
                                                     type="submit"> Participar
                                             </button>
                                         </div>
-                                    @elseif ($bolao->is_moderado == 1 && $bolao->esta_aprovado == null)
+                                    @elseif ($bolao->is_moderado == 1 && ($bolao->esta_aprovado == null || $bolao->esta_aprovado == 0))
                                         <div class="float-right">
                                             <button class="btn btn-sm btn-primary" style="color: white"
                                                     type="submit"> Pedir entrada
