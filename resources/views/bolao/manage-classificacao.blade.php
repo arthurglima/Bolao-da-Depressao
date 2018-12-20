@@ -42,8 +42,9 @@
     <div class="content" style="padding: 15px">
         <div class="navbar navbar-light bg-light">
             <div class="navbar-brand" style="font-size: 16px" href="#">
-                Critério de desempate: Placar, Gols Vencedor, Gols Perdedor
+                Critério de desempate:
                 <small><b>
+                        Placar, Gols Vencedor, Gols Perdedor,
                         @switch($classificacao[0]->desempate)
                             @case(0)
                             Quem criou palpites mais cedo
