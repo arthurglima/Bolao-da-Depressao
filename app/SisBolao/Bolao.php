@@ -223,11 +223,12 @@ class Bolao extends BolaoModel
       }
     }
 
-    return BolaoHasUser::where('bolao_id', '=', $this->id)
+    return DB::table('bolao_has_user')
+      ->where('bolao_id', '=', $this->id)
       ->where('users_id', '=', Auth::user()->id)
       ->update([
         'is_inactive' => 1,
-        'esta_aprovado' => 1,
+        'esta_aprovado' => 0,
       ]);
 
 
