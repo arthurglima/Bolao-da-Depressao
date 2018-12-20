@@ -62,12 +62,6 @@
                                                href="boloes/{{$bolao->id}}/classificacao"> Visualizar
                                             </a>
                                         </div>
-                                    @elseif($bolao->is_moderado == 1 && $bolao->esta_aprovado == 0)
-                                        <div class="float-right">
-                                            <button class="btn btn-sm btn-primary" style="color: white"
-                                                    type="button"> Aguardando aprovação
-                                            </button>
-                                        </div>
                                     @elseif($bolao->is_moderado == 1 && ($bolao->esta_aprovado == 1 && !$bolao->is_inactive))
                                         <div class="float-right">
                                             <a class="btn btn-sm btn-secondary" style="color: white"
